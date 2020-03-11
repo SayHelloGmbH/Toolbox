@@ -18,15 +18,19 @@ import { MediaUploadCheck, MediaUpload } from '@wordpress/block-editor';
 import { _x } from '@wordpress/i18n';
 
 export default class extends Component {
-
 	constructor(props) {
 		super(...arguments);
 		this.props = props;
 	}
 
 	render() {
-
-		const { allowedTypes, attributes, attributeKey, file, setAttributes } = this.props;
+		const {
+			allowedTypes,
+			attributes,
+			attributeKey,
+			file,
+			setAttributes
+		} = this.props;
 
 		const allowed_types = allowedTypes || ['image/jpg', 'image/jpeg'];
 		const attribute_key = attributeKey || 'file';
@@ -36,38 +40,73 @@ export default class extends Component {
 				<MediaUploadCheck>
 					<MediaUpload
 						onSelect={file => {
-							setAttributes( {[attribute_key]: file});
+							setAttributes({ [attribute_key]: file });
 						}}
 						allowedTypes={allowed_types}
 						value={[attribute_key].id}
-						render={({open}) => {
-
+						render={({ open }) => {
 							console.log(file);
 							return (
 								<Fragment>
-									<div className={`c-fileselector__figure ${!file.id ? 'c-fileselector__figure--nofile' : ''}`}>
-										{
-											file.id &&
-											<img src={ file.sizes.thumbnail.url } />
-										}
+									<div
+										className={`c-fileselector__figure ${
+											!file.id
+												? 'c-fileselector__figure--nofile'
+												: ''
+										}`}
+									>
+										{file.id && (
+											<img
+												src={file.sizes.thumbnail.url}
+											/>
+										)}
 										<div class="c-fileselector__buttons">
-											{
-												!file.id &&
-												<Button onClick={open} isDefault isLarge isPrimary>
-													{_x('Datei auswählen', 'Admin component button text', 'sha')}
+											{!file.id && (
+												<Button
+													onClick={open}
+													isDefault
+													isLarge
+													isPrimary
+												>
+													{_x(
+														'Datei auswählen',
+														'Admin component button text',
+														'sha'
+													)}
 												</Button>
-											}
-											{
-												file.id &&
+											)}
+											{file.id && (
 												<Fragment>
-													<Button onClick={open} isDefault isLarge>
-														{_x('Datei ersetzen', 'Admin component button text', 'sha')}
+													<Button
+														onClick={open}
+														isDefault
+														isLarge
+													>
+														{_x(
+															'Datei ersetzen',
+															'Admin component button text',
+															'sha'
+														)}
 													</Button>
-													<Button onClick={() => setAttributes({file: {id: false}})} isDefault isSmall>
-														{_x('Datei entfernen', 'Admin component button text', 'sha')}
+													<Button
+														onClick={() =>
+															setAttributes({
+																file: {
+																	id: false
+																}
+															})
+														}
+														isDefault
+														isSmall
+													>
+														{_x(
+															'Datei entfernen',
+															'Admin component button text',
+															'sha'
+														)}
 													</Button>
 												</Fragment>
-											}
+											)}
 										</div>
 									</div>
 								</Fragment>

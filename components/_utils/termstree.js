@@ -38,4 +38,3 @@ export function buildTermsTree(flatTerms) {
 
 	return fillWithChildren(termsByParent['0'] || []);
 }
-© 2020 GitHub, Inc.
