@@ -26,7 +26,7 @@ export class LazyImage extends Component {
 			return <p>Kein Bild gefunden</p>;
 		}
 
-		const image = this.props.image;
+		let image = this.props.image;
 
 		let srcset = [];
 		Object.keys(image.srcset).forEach(size => {
@@ -45,40 +45,51 @@ export class LazyImage extends Component {
 			className += ' ' + this.props.className;
 		}
 		if (this.props.background === true) {
+			let style_orig = {
+				backgroundImage: `url('${image.org[0]}')`
+			};
+			let style_pre = {
+				backgroundImage: `url('${image.pre}')`
+			};
+
+			if (this.props.focalPoint) {
+				style_orig.backgroundPosition = `${this.props.focalPoint.x *
+					100}% ${this.props.focalPoint.y * 100}%`;
+				style_pre.backgroundPosition = `${this.props.focalPoint.x *
+					100}% ${this.props.focalPoint.y * 100}%`;
+			}
+
 			if (this.props.admin) {
 				return (
 					<figure className={className}>
 						<div
 							{...image.attributes}
 							className="o-lazyimage__image o-lazyimage__image--lazyloaded"
-							style={{
-								backgroundImage: `url('${image.org[0]}')`
-							}}
+							style={style_orig}
 						/>
 					</figure>
 				);
 			}
+
 			return (
 				<figure className={className}>
 					{!image.svg && (
 						<div
 							className="o-lazyimage__preview"
-							style={{ backgroundImage: `url('${image.pre}')` }}
+							style={style_pre}
 						/>
 					)}
 					<div
 						{...image.attributes}
 						className="o-lazyimage__image o-lazyimage__image--lazyload"
-						style={{ backgroundImage: `url('${image.pre}')` }}
+						style={style_orig}
 						data-bgset={srcset}
 					/>
 					<noscript>
 						<div
 							{...image.attributes}
 							className="o-lazyimage__image"
-							style={{
-								backgroundImage: `url('${image.org[0]}')`
-							}}
+							style={style_orig}
 						/>
 					</noscript>
 				</figure>
