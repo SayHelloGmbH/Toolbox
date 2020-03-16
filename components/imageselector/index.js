@@ -19,24 +19,12 @@
 />
  */
 
-import {
-	Button
-} from '@wordpress/components';
-import {
-	Component,
-	Fragment
-} from '@wordpress/element';
-import {
-	MediaUploadCheck,
-	MediaUpload
-} from '@wordpress/block-editor';
-import {
-	_x
-} from '@wordpress/i18n';
+import { Button } from '@wordpress/components';
+import { Component, Fragment } from '@wordpress/element';
+import { MediaUploadCheck, MediaUpload } from '@wordpress/block-editor';
+import { _x } from '@wordpress/i18n';
 
-import {
-	getLazySrcs
-} from './LazyImage.jsx';
+import { getLazySrcs } from './LazyImage.jsx';
 
 export class ImageSelector extends Component {
 
