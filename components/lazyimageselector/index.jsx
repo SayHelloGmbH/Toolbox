@@ -22,7 +22,6 @@
 <LazyImageSelector
 	attributes={attributes}
 	setAttributes={setAttributes}
-	attributeKey="image"
 />
  */
 
@@ -50,7 +49,7 @@ export default class LazyImageSelector extends Component {
 			setAttributes
 		} = this.props;
 
-		const allowed_types = allowedTypes || [ 'image/jpg', 'image/jpeg' ];
+		const allowed_types = allowedTypes || [ 'image' ];
 		const attribute_key = attributeKey || 'image';
 		const image_format = imageFormat || 'full';
 
@@ -69,7 +68,7 @@ export default class LazyImageSelector extends Component {
 								return (
 									<figure className={`c-imageselector__figure ${!image.id ? 'c-imageselector__figure--noimage' : ''}`}>
 										{
-											image.id &&
+											!!image.id &&
 											<img
 												className="c-imageselector__image"
 												onClick={open}
@@ -89,7 +88,7 @@ export default class LazyImageSelector extends Component {
 												</Button>
 											}
 											{
-												image.id &&
+												!!image.id &&
 												<Fragment>
 													<Button
 														onClick={open}
@@ -99,8 +98,8 @@ export default class LazyImageSelector extends Component {
 													</Button>
 													<Button
 														onClick={() => setAttributes({image: {id: false}})}
-														isDefault
-														isSmall>
+														isLink
+														isDestructive>
 														{_x('Bild entfernen', 'Admin component button text', 'sha')}
 													</Button>
 												</Fragment>
