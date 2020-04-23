@@ -28,7 +28,7 @@ class BlogCards
 			'post_type' => 'post',
 			'post_status' => 'publish',
 			'posts_per_page' => 4,
-			'ignore_sticky' => false
+			'ignore_sticky' => true
 		]);
 
 		if (count($posts) > 4) {
