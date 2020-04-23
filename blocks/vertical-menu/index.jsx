@@ -4,11 +4,16 @@ import { InnerBlocks } from '@wordpress/block-editor';
 import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
 
 registerBlockType( 'mhm/vertical-menu', {
-	title: _x( 'Vertical menu', 'Block title', 'sht' ),
+	title: _x( 'Vertical menu', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
-	keywords: [ 'Menu', 'Navigation', 'List' ],
+	keywords: [
+		_x('Menu', 'Block keyword', 'sha'),
+		_x('Navigation', 'Block keyword', 'sha'),
+		_x('List', 'Block keyword', 'sha')
+	],
 	supports: {
+		group: true,
 		mode: false,
 		html: false,
 		multiple: true,
@@ -27,14 +32,13 @@ registerBlockType( 'mhm/vertical-menu', {
 			return (
 				<div className={className}>
 					<InnerBlocks
-						templateLock={true}
 						allowedBlocks={(['core/heading'], ['core/list'])}
 						template={[
 							[
 								'core/heading',
 								{
 									level: 2,
-									content: _x('Menü', 'Default content', 'sht')
+									placeholder: _x('Geben Sie einen Titel ein', 'Default content', 'sha')
 								}
 							],
 							['core/list', {
