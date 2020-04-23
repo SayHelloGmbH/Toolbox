@@ -5,9 +5,10 @@ are explicitly excluded but this can easily be modified.
 
 ## Usage
 
-- Add the block.jsx file to the normal structure in the Theme.
-- Add the BlogCards.php file to the src structure in the Theme.
-- Use the partials/blocks/blog-cards.php file for the output.
+- Add the _block.jsx_ file to the normal structure in the Theme.
+- Add the _blog-cards.scss_ file to the normal structure in the Theme.
+- Add the _BlogCards.php_ file to the src structure in the Theme.
+- Use the _partials/blocks/blog-cards.php_ file for the output.
 
 ## Requirements
 
