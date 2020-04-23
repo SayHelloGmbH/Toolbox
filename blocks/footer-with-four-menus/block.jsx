@@ -5,7 +5,7 @@ import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
 
 // Menu block which is only used as a child element
 // and which cannot be inserted into the editor directly
-registerBlockType( 'sht/footer-with-four-menus__menu', {
+registerBlockType( 'sht/footer-with-four-menus-menu', {
 	title: _x( 'Vertical menu', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -54,7 +54,7 @@ registerBlockType( 'sht/footer-with-four-menus__menu', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus__menu' );
+		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus-menu' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
@@ -64,7 +64,7 @@ registerBlockType( 'sht/footer-with-four-menus__menu', {
 } );
 
 // Footer block containing a fixed collection of child blocks
-registerBlockType( 'sht/footer', {
+registerBlockType( 'sht/footer-with-four-menus', {
 	title: _x( 'Footer with four menus', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -93,12 +93,12 @@ registerBlockType( 'sht/footer', {
 			return (
 				<div className={className}>
 					<InnerBlocks
-						allowedBlocks={(['core/heading'], ['sht/footer-with-four-menus__menu'])}
+						allowedBlocks={(['core/heading'], ['sht/footer-with-four-menus-menu'])}
 						template={[
-							['sht/footer-with-four-menus__menu'],
-							['sht/footer-with-four-menus__menu'],
-							['sht/footer-with-four-menus__menu'],
-							['sht/footer-with-four-menus__menu'],
+							['sht/footer-with-four-menus-menu'],
+							['sht/footer-with-four-menus-menu'],
+							['sht/footer-with-four-menus-menu'],
+							['sht/footer-with-four-menus-menu'],
 						]}
 					/>
 				</div>
@@ -106,7 +106,7 @@ registerBlockType( 'sht/footer', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/footer' );
+		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
