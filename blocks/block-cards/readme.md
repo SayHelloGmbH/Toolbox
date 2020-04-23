@@ -3,6 +3,10 @@
 Add a server-side-rendered list of the newest 4 posts. Sticky posts
 are explicitly excluded but this can easily be modified.
 
+## Preview
+
+![Preview](./blog-cards.jpg)
+
 ## Usage
 
 - Add the _block.jsx_ file to the normal structure in the Theme.
