@@ -1,15 +1,14 @@
-import { __, _x } from '@wordpress/i18n';
+import { _x } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
 
 registerBlockType( 'mhm/vertical-menu', {
-	title: __( 'Vertical menu', 'sht' ),
+	title: _x( 'Vertical menu', 'Block title', 'sht' ),
 	icon: 'list-view',
 	category: 'widgets',
 	keywords: [ 'Menu', 'Navigation', 'List' ],
 	supports: {
-		group: false,
 		mode: false,
 		html: false,
 		multiple: true,
