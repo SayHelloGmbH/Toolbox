@@ -5,7 +5,7 @@ import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
 
 // Menu block which is only used as a child element
 // and which cannot be inserted into the editor directly
-registerBlockType( 'sht/footer-with-four-menus-menu', {
+registerBlockType( 'sht/footer-with-four-menus__menu', {
 	title: _x( 'Vertical menu', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -54,7 +54,7 @@ registerBlockType( 'sht/footer-with-four-menus-menu', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus-menu' );
+		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus__menu' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
@@ -64,7 +64,7 @@ registerBlockType( 'sht/footer-with-four-menus-menu', {
 } );
 
 // Footer block containing a fixed collection of child blocks
-registerBlockType( 'sht/footer-with-four-menus', {
+registerBlockType( 'sht/footer', {
 	title: _x( 'Footer with four menus', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -93,12 +93,12 @@ registerBlockType( 'sht/footer-with-four-menus', {
 			return (
 				<div className={className}>
 					<InnerBlocks
-						allowedBlocks={(['core/heading'], ['sht/footer-with-four-menus-menu'])}
+						allowedBlocks={(['core/heading'], ['sht/footer-with-four-menus__menu'])}
 						template={[
-							['sht/footer-with-four-menus-menu'],
-							['sht/footer-with-four-menus-menu'],
-							['sht/footer-with-four-menus-menu'],
-							['sht/footer-with-four-menus-menu'],
+							['sht/footer-with-four-menus__menu'],
+							['sht/footer-with-four-menus__menu'],
+							['sht/footer-with-four-menus__menu'],
+							['sht/footer-with-four-menus__menu'],
 						]}
 					/>
 				</div>
@@ -106,7 +106,7 @@ registerBlockType( 'sht/footer-with-four-menus', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus' );
+		const className = getBlockDefaultClassName( 'sht/footer' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
