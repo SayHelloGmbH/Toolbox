@@ -3,7 +3,7 @@ import { Component } from '@wordpress/element';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
 
-registerBlockType( 'sht/vertical-menu', {
+registerBlockType( 'mhm/vertical-menu', {
 	title: __( 'Vertical menu', 'sht' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -28,6 +28,7 @@ registerBlockType( 'sht/vertical-menu', {
 			return (
 				<div className={className}>
 					<InnerBlocks
+						templateLock={true}
 						allowedBlocks={(['core/heading'], ['core/list'])}
 						template={[
 							[
@@ -47,7 +48,7 @@ registerBlockType( 'sht/vertical-menu', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/vertical-menu' );
+		const className = getBlockDefaultClassName( 'mhm/vertical-menu' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
