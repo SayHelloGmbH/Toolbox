@@ -5,7 +5,7 @@ import { Component } from '@wordpress/element';
 
 registerBlockType( "sht/blog-cards", {
 	title: _x( "Blog posts as cards", "Block title", "sha" ),
-	icon: "images-altl",
+	icon: "images-alt",
 	category: "widgets",
 	supports: {
 		align: [ 'wide', 'full' ],
