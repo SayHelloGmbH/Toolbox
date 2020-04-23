@@ -64,7 +64,7 @@ registerBlockType( 'sht/footer-with-four-menus-menu', {
 } );
 
 // Footer block containing a fixed collection of child blocks
-registerBlockType( 'sht/footer', {
+registerBlockType( 'sht/footer-with-four-menus', {
 	title: _x( 'Footer with four menus', 'Block title', 'sha' ),
 	icon: 'list-view',
 	category: 'widgets',
@@ -106,7 +106,7 @@ registerBlockType( 'sht/footer', {
 		}
 	},
 	save() {
-		const className = getBlockDefaultClassName( 'sht/footer' );
+		const className = getBlockDefaultClassName( 'sht/footer-with-four-menus' );
 		return (
 			<div className={className}>
 				<InnerBlocks.Content />
