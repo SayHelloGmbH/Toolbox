@@ -5,6 +5,8 @@ $title = get_the_title();
 $excerpt = get_the_excerpt();
 
 if (sht_theme()->Package->Gutenberg->isContextEdit()) {
+	// Get the values passed in from the Editor and use them
+	// for the preview, instead of the values from the database
 	$title = $data['attributes']['post_title'];
 	$excerpt = $data['attributes']['post_excerpt'];
 }
