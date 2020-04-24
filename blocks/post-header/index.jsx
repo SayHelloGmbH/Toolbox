@@ -4,8 +4,8 @@ import { ServerSideRender } from '@wordpress/components';
 
 import edit from './edit.jsx';
 
-registerBlockType('mhm/post-header', {
-	title: _x('Post or Page Header', 'Block title', 'picard'),
+registerBlockType('sht/post-header', {
+	title: _x('Post or Page Header', 'Block title', 'sha'),
 	description: _x('This block automatically shows the current post/page title and optional excerpt.', 'Block instructions', 'sha'),
 	icon: 'slides',
 	category: 'widgets',
@@ -23,8 +23,7 @@ registerBlockType('mhm/post-header', {
 	},
 	example: {
 		attributes: {
-			content: _x('Hello World', 'Example title', 'sha'),
-			alignment: 'center',
+			alignment: 'center'
 		},
 	},
 	keywords: [
@@ -32,8 +31,5 @@ registerBlockType('mhm/post-header', {
 		_x('Title',' Gutenberg block keyword', 'sha'),
 		_x('Header',' Gutenberg block keyword', 'sha')
 	],
-	edit,
-	save() {
-		return null;
-	},
+	edit
 });
