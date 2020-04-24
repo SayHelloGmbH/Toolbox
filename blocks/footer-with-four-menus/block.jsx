@@ -36,6 +36,7 @@ registerBlockType( 'sht/footer-with-four-menus-menu', {
 				<div className={className}>
 					<InnerBlocks
 						allowedBlocks={(['core/heading'], ['core/list'])}
+						templateLock={true}
 						template={[
 							[
 								'core/heading',
@@ -94,6 +95,7 @@ registerBlockType( 'sht/footer-with-four-menus', {
 				<div className={className}>
 					<InnerBlocks
 						allowedBlocks={(['core/heading'], ['sht/footer-with-four-menus-menu'])}
+						templateLock={true}
 						template={[
 							['sht/footer-with-four-menus-menu'],
 							['sht/footer-with-four-menus-menu'],
