@@ -17,7 +17,7 @@ class PostHeader
 
 	public function registerBlocks()
 	{
-		register_block_type('mhm/post-header', [
+		register_block_type('sht/post-header', [
 			'render_callback' => [$this, 'renderBlock'],
 			'attributes'      => [
 				'alignment' => [
