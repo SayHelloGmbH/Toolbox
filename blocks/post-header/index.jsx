@@ -2,10 +2,10 @@ import { _x } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { ServerSideRender } from '@wordpress/components';
 
-import edit from './edit.jsx';
+import edit from './edit';
 
-registerBlockType('sht/post-header', {
-	title: _x('Post or Page Header', 'Block title', 'sha'),
+registerBlockType('mhm/post-header', {
+	title: _x('Post or Page Header', 'Block title', 'picard'),
 	description: _x('This block automatically shows the current post/page title and optional excerpt.', 'Block instructions', 'sha'),
 	icon: 'slides',
 	category: 'widgets',
@@ -23,7 +23,7 @@ registerBlockType('sht/post-header', {
 	},
 	example: {
 		attributes: {
-			alignment: 'center'
+			alignment: 'center',
 		},
 	},
 	keywords: [
