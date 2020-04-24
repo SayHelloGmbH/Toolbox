@@ -21,7 +21,7 @@ export default class Edit extends Component {
 					/>
 				</BlockControls>
 				<ServerSideRender
-					block='mhm/post-header'
+					block='sht/post-header'
 					attributes={{
 						alignment: attributes.alignment
 					}}
