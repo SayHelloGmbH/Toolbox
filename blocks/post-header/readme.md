@@ -15,6 +15,12 @@ adjustments, except for text alignment.
 - Add the _PostHeader.php_ file to the src structure in the Theme.
 - Use the _partials/blocks/post-header.php_ file for the output.
 
+## Add Excerpt support to Pages
+
+    add_action('init', function() {
+        add_post_type_support( 'page', 'excerpt' );
+    });
+
 ## Special use of withSelect
 
 The content of the Block is rendered on the server via PHP. In the 
