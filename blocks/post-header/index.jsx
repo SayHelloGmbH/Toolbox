@@ -2,7 +2,7 @@ import { _x } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { ServerSideRender } from '@wordpress/components';
 
-import edit from './edit';
+import edit from './edit.jsx';
 
 registerBlockType('mhm/post-header', {
 	title: _x('Post or Page Header', 'Block title', 'picard'),
