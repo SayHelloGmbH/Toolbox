@@ -15,6 +15,23 @@ adjustments, except for text alignment.
 - Add the _PostHeader.php_ file to the src structure in the Theme.
 - Use the _partials/blocks/post-header.php_ file for the output.
 
+## Special use of withSelect
+
+The content of the Block is rendered on the server via PHP. In the 
+view context, it uses the regular get_the_title() and get_the_excerpt() 
+functions from WordPress Core.
+
+Because the Block sometimes needs to show the unsaved title and excerpt 
+in the editor, we create block attributes for `post_title` and `post_excerpt` 
+and pass the current state of these attributes to the `<ServerSideRender />` 
+component. This component passes these attributes to the server and the 
+server-side rendering uses these values.
+
+The values of these attributes are only saved with the block, but are only 
+used in rendering the block in the `edit` context. The `view` context always 
+uses the values saved in the database as `$post->post_title` and `$post->post_excerpt`.
+
+
 ## Requirements
 
 * WordPress 5.4
