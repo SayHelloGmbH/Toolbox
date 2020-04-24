@@ -1,32 +1,43 @@
 import { _x } from '@wordpress/i18n';
-import { AlignmentToolbar, BlockControls } from '@wordpress/block-editor';
+import { registerBlockType } from '@wordpress/blocks';
 import { ServerSideRender } from '@wordpress/components';
-import { Component, Fragment } from '@wordpress/element';
 
-export default class Edit extends Component {
-	render() {
-		const { attributes, setAttributes } = this.props;
-		const { alignment } = attributes;
+import edit from './edit.jsx';
 
-		const onChangeAlignment = ( newAlignment ) => {
-			setAttributes({ alignment: newAlignment === undefined ? 'none' : newAlignment });
-		};
-
-		return (
-			<Fragment>
-				<BlockControls>
-					<AlignmentToolbar
-						value={ alignment }
-						onChange={ onChangeAlignment }
-					/>
-				</BlockControls>
-				<ServerSideRender
-					block='sht/post-header'
-					attributes={{
-						alignment: attributes.alignment
-					}}
-					/>
-			</Fragment>
-		);
-	}
-}
+registerBlockType('sht/post-header', {
+	title: _x('Post or Page Header', 'Block title', 'sha'),
+	description: _x('This block automatically shows the current post/page title and optional excerpt.', 'Block instructions', 'sha'),
+	icon: 'slides',
+	category: 'widgets',
+	supports: {
+		mode: false,
+		html: false,
+		multiple: false,
+		reusable: false,
+	},
+	attributes: {
+		alignment: {
+			type: 'string',
+			default: 'center',
+		},
+		post_title: {
+			type: 'string',
+			default: '',
+		},
+		post_excerpt: {
+			type: 'string',
+			default: '',
+		},
+	},
+	example: {
+		attributes: {
+			alignment: 'center',
+		},
+	},
+	keywords: [
+		_x('Excerpt',' Gutenberg block keyword', 'sha'),
+		_x('Title',' Gutenberg block keyword', 'sha'),
+		_x('Header',' Gutenberg block keyword', 'sha')
+	],
+	edit
+});
