@@ -1,35 +1,42 @@
 import { _x } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { AlignmentToolbar, BlockControls } from '@wordpress/block-editor';
 import { ServerSideRender } from '@wordpress/components';
+import { withSelect } from '@wordpress/data';
+import { Component, Fragment } from '@wordpress/element';
 
-import edit from './edit';
+class Edit extends Component {
+	render() {
+		const { attributes, post_excerpt, post_title, setAttributes } = this.props;
+		const { alignment } = attributes;
 
-registerBlockType('mhm/post-header', {
-	title: _x('Post or Page Header', 'Block title', 'picard'),
-	description: _x('This block automatically shows the current post/page title and optional excerpt.', 'Block instructions', 'sha'),
-	icon: 'slides',
-	category: 'widgets',
-	supports: {
-		mode: false,
-		html: false,
-		multiple: false,
-		reusable: false,
-	},
-	attributes: {
-		alignment: {
-			type: 'string',
-			default: 'center',
-		},
-	},
-	example: {
-		attributes: {
-			alignment: 'center',
-		},
-	},
-	keywords: [
-		_x('Excerpt',' Gutenberg block keyword', 'sha'),
-		_x('Title',' Gutenberg block keyword', 'sha'),
-		_x('Header',' Gutenberg block keyword', 'sha')
-	],
-	edit
-});
+		const onChangeAlignment = ( newAlignment ) => {
+			setAttributes({ alignment: newAlignment === undefined ? 'none' : newAlignment });
+		};
+
+		return (
+			<Fragment>
+				<BlockControls>
+					<AlignmentToolbar
+						value={ alignment }
+						onChange={ onChangeAlignment }
+					/>
+				</BlockControls>
+				<ServerSideRender
+					block='sht/post-header'
+					attributes={{
+						alignment: attributes.alignment,
+						post_title: post_title,
+						post_excerpt: post_excerpt
+					}}
+					/>
+			</Fragment>
+		);
+	}
+}
+
+export default withSelect(function(select) {
+	return {
+		post_title: select('core/editor').getEditedPostAttribute('title'),
+		post_excerpt: select('core/editor').getEditedPostAttribute('excerpt'),
+	};
+})(Edit);
