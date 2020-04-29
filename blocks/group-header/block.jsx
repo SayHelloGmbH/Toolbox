@@ -1,4 +1,4 @@
-import { __, _x } from '@wordpress/i18n';
+import { _x } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { registerBlockType, getBlockDefaultClassName } from '@wordpress/blocks';
