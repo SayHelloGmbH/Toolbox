@@ -1,7 +1,7 @@
 # Gutenberg Block: Group Header
 
 A pre-defined set of core/heading and core/paragraph, provided using 
-an InnerBlocks template. This is intended for insertion as a heading 
+an `InnerBlocks` template. This is intended for insertion as a heading 
 element for a group of collected blocks.
 
 ## Usage
