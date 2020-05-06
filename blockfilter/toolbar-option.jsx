@@ -13,6 +13,10 @@ const icon = () => {
 	return <svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="dashicon dashicons-star-filled"><path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" fill="currentColor"></path></svg>;
 }
 
+// option class and name
+const optionClass = 'has-special-option';
+const optionName = 'shtSpecialOption';
+
 // enable filters for blocks
 const enableToolbarOptionOnBlock = {
 	'core/paragraph': false, // block: defaultState (boolean)
@@ -34,7 +38,7 @@ const addToolbarOptionAttribute = ( settings, name ) => {
 
 	// use lodash's assign to gracefully handle if attributes are undefined
 	settings.attributes = assign( settings.attributes, {
-		shtSpecialOption: {
+		[ optionName ]: {
 			type: 'boolean',
 			default: enableToolbarOptionOnBlock[ name ],
 		},
@@ -61,11 +65,11 @@ const addToolbarOptionControl = createHigherOrderComponent( ( BlockEdit ) => {
 
 		// remove the special option class if exists
 		let classes = props.attributes.className ? props.attributes.className.trim().split( " " ) : [];
-		classes = classes.filter( function ( value, index, arr ) { return value !== 'has-special-option' } );
+		classes = classes.filter( function ( value, index, arr ) { return value !== optionClass } );
 
 		// add the special option class
-		if ( props.attributes.shtSpecialOption ) {
-			classes = classnames( classes, 'has-special-option' );
+		if ( props.attributes[ optionName ] ) {
+			classes = classnames( classes, optionClass );
 		}
 
 		// set className
@@ -79,13 +83,13 @@ const addToolbarOptionControl = createHigherOrderComponent( ( BlockEdit ) => {
 						<div class="components-toolbar">
 							<Button
 								icon={icon}
-								value={props.attributes.shtSpecialOption ? false : true}
+								value={props.attributes[optionName] ? false : true}
 								label={__('Spezial Option', 'sht')}
-								isPressed={props.attributes.shtSpecialOption}
+								isPressed={props.attributes[optionName]}
 								onClick={() => {
-									props.setAttributes({shtSpecialOption: props.attributes.shtSpecialOption ? false : true});
+									props.setAttributes({[optionName]: props.attributes[optionName] ? false : true});
 								}}
-								style={props.attributes.shtSpecialOption ? {
+								style={props.attributes[optionName] ? {
 									backgroundColor: '#555d66',
 									color: '#ffffff' ,
 									border: '#ffffff 2px solid',
