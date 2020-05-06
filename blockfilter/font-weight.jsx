@@ -61,8 +61,6 @@ const addFontWeightAttribute = ( settings, name ) => {
 		},
 	} );
 
-	console.log( name, settings.attributes );
-
 	return settings;
 }
 
