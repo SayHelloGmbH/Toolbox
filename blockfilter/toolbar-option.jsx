@@ -15,7 +15,7 @@ const icon = () => {
 
 // enable filters for blocks
 const enableOnBlocks = {
-	'core/paragraph': 'bold', // block: defaultFontWeight
+	'core/paragraph': false, // defaultState
 }
 
 /**
