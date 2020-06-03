@@ -19,30 +19,9 @@
 
 @include context-view {
 	.has-block-margin {
-		&--small {
-			&:first-child {
-				margin-top: 0;
-			}
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-		&--medium {
-			&:first-child {
-				margin-top: 0;
-			}
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-		&--large {
-			&:first-child {
-				margin-top: 0;
-			}
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
+		&--large,
+		&--medium,
+		&--small,
 		&--xlarge {
 			&:first-child {
 				margin-top: 0;
@@ -56,30 +35,9 @@
 
 @include context-edit {
 	.has-block-margin {
-		&--small {
-			.wp-block:first-child & {
-				margin-top: 0;
-			}
-			.wp-block:last-child & {
-				margin-bottom: 0;
-			}
-		}
-		&--medium {
-			.wp-block:first-child & {
-				margin-top: 0;
-			}
-			.wp-block:last-child & {
-				margin-bottom: 0;
-			}
-		}
-		&--large {
-			.wp-block:first-child & {
-				margin-top: 0;
-			}
-			.wp-block:last-child & {
-				margin-bottom: 0;
-			}
-		}
+		&--large,
+		&--medium,
+		&--small,
 		&--xlarge {
 			.wp-block:first-child & {
 				margin-top: 0;
