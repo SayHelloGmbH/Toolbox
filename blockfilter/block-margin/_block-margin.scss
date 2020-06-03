@@ -2,41 +2,91 @@
 	&--small {
 		margin-top: var(--unit-small);
 		margin-bottom: var(--unit-small);
-		&:first-child {
-			margin-top: 0;
-		}
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 	&--medium {
 		margin-top: var(--unit-medium);
 		margin-bottom: var(--unit-medium);
-		&:first-child {
-			margin-top: 0;
-		}
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 	&--large {
 		margin-top: var(--unit-large);
 		margin-bottom: var(--unit-large);
-		&:first-child {
-			margin-top: 0;
-		}
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 	&--xlarge {
 		margin-top: var(--unit-xlarge);
 		margin-bottom: var(--unit-xlarge);
-		&:first-child {
-			margin-top: 0;
+	}
+}
+
+@include context-view {
+	.has-block-margin {
+		&--small {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
-		&:last-child {
-			margin-bottom: 0;
+		&--medium {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		&--large {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		&--xlarge {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+@include context-edit {
+	.has-block-margin {
+		&--small {
+			.wp-block:first-child & {
+				margin-top: 0;
+			}
+			.wp-block:last-child & {
+				margin-bottom: 0;
+			}
+		}
+		&--medium {
+			.wp-block:first-child & {
+				margin-top: 0;
+			}
+			.wp-block:last-child & {
+				margin-bottom: 0;
+			}
+		}
+		&--large {
+			.wp-block:first-child & {
+				margin-top: 0;
+			}
+			.wp-block:last-child & {
+				margin-bottom: 0;
+			}
+		}
+		&--xlarge {
+			.wp-block:first-child & {
+				margin-top: 0;
+			}
+			.wp-block:last-child & {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
