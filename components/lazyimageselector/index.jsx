@@ -1,5 +1,5 @@
 /**
- * LazyImage selector for Say Hello components
+ * LazyImageSelector for Say Hello components
  * mark@sayhello.ch 24.3.2020
  *
  * This version uses the lazyImage logic and can be used if the
@@ -30,7 +30,7 @@ import { Component, Fragment } from '@wordpress/element';
 import { MediaUploadCheck, MediaUpload } from '@wordpress/block-editor';
 import { _x } from '@wordpress/i18n';
 
-import { getLazySrcs } from './LazyImage.jsx';
+import { getLazySrcs } from './lazyimage.jsx';
 
 export default class LazyImageSelector extends Component {
 
@@ -46,60 +46,73 @@ export default class LazyImageSelector extends Component {
 			attributes,
 			attributeKey,
 			imageFormat,
-			setAttributes
+			setAttributes,
+			objectFocalPoint
 		} = this.props;
 
 		const allowed_types = allowedTypes || [ 'image' ];
 		const attribute_key = attributeKey || 'image';
 		const image_format = imageFormat || 'full';
 
+		let style_orig = {};
+		let style_pre = {};
+
+		if (this.props.objectFocalPoint) {
+			style_orig.objectPosition = `${this.props.objectFocalPoint.x * 100}% ${this.props.objectFocalPoint.y * 100}%`;
+			style_pre.objectPosition = `${this.props.objectFocalPoint.x * 100}% ${this.props.objectFocalPoint.y * 100}%`;
+		}
+
+		const image_attribute = attributes[attribute_key];
+
 		return (
 			<Fragment>
-				<div className="c-imageselector">
+				<div className="o-imageselector">
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={image => {
 								getLazySrcs(image.id, image_format).then(image => setAttributes({[attribute_key]: image}));
 							}}
 							allowedTypes={allowed_types}
-							value={[attribute_key].id}
+							value={image_attribute.id}
 							render={({open}) => {
-								const image = attributes[attribute_key];
 								return (
-									<figure className={`c-imageselector__figure ${!image.id ? 'c-imageselector__figure--noimage' : ''}`}>
+									<figure
+										className={`o-imageselector__figure ${!image_attribute.id ? 'o-imageselector__figure--noimage' : ''}`}
+										style={style_orig}
+										>
 										{
-											!!image.id &&
+											!!image_attribute.id &&
 											<img
-												className="c-imageselector__image"
+												className="o-imageselector__image"
 												onClick={open}
-												src={image.org[0]}
-												alt={image.alt}
+												src={image_attribute.org[0]}
+												alt={image_attribute.alt}
+												style={style_orig}
 												/>
 										}
-										<div className="c-imageselector__buttons">
+										<div className="o-imageselector__buttons">
 											{
-												!image.id &&
+												!image_attribute.id &&
 												<Button
 													onClick={open}
-													isDefault
 													isLarge
 													isPrimary>
 														{_x('Bild auswählen', 'Admin component button text', 'sha')}
 												</Button>
 											}
 											{
-												!!image.id &&
+												!!image_attribute.id &&
 												<Fragment>
 													<Button
 														onClick={open}
-														isDefault
-														isLarge>
+														isLarge
+														isPrimary>
 														{_x('Bild ersetzen', 'Admin component button text', 'sha')}
 													</Button>
 													<Button
-														onClick={() => setAttributes({image: {id: false}})}
-														isLink
-														isDestructive>
+														onClick={() => setAttributes({[attribute_key]: {id: false}})}
+														isSmall
+														isSecondary>
 														{_x('Bild entfernen', 'Admin component button text', 'sha')}
 													</Button>
 												</Fragment>
