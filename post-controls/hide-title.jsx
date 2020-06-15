@@ -43,7 +43,7 @@ const isValidPostType = function ( name ) {
 	return validPostTypes.includes( name );
 };
 
-let HideTitlePanel = ( { hide_title, post_type, onUpdateHideTitle } ) => {
+let HideTitlePanel = ( { hide_title, post_type, onUpdate } ) => {
 
 	if ( !isValidPostType( post_type ) ) {
 		return null;
@@ -59,7 +59,7 @@ let HideTitlePanel = ( { hide_title, post_type, onUpdateHideTitle } ) => {
 				label={ _x('Beitragstitel verstecken', 'ToggleControl label', 'sha') }
 				help={ hide_title ? _x('Der Beitragstitel ist auf der öffentlichen Ansicht ausgeblendet. Es für die Suchmaschinenoptimierung ratsam, eine Überschrift mit der Ebene H1 in den Inhalt einzufügen.', 'Warning text', 'sha') : '' }
 				checked={ hide_title }
-				onChange={ hide_title => onUpdateHideTitle( hide_title ) }
+				onChange={ hide_title => onUpdate( hide_title ) }
 			/>
 		</PluginDocumentSettingPanel>
 	);
@@ -74,7 +74,7 @@ const HideTitlePanelWithCompose = compose( [
 	} ),
 	withDispatch( ( dispatch ) => {
 		return {
-			onUpdateHideTitle: ( metaValue ) => {
+			onUpdate: ( metaValue ) => {
 				dispatch( 'core/editor' ).editPost( { meta: { hide_title: metaValue } } );
 			}
 		}
