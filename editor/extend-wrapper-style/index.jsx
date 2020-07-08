@@ -9,13 +9,14 @@
  * Usage: import './extend-wrapper-style/index.js';
  *
  * Don't forget to extend the admin BODY class with the
- * admin_body_class hook in PHP.
+ * admin_body_class hook in PHP. This requires PHP 7+
+ * because of the null coalescing operators.
 
 add_filter('admin_body_class', 'my_admin_body_class');
 function my_admin_body_class($classes)
 {
 	global $post;
-	if ($post->post_type === 'block_area') {
+	if ($post->post_type ?? false && $post->post_name ?? false) {
 		$classes .= ' post-type-'.$post->post_type.'--'.$post->post_name;
 	}
 	return $classes;
