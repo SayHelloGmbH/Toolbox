@@ -27,30 +27,29 @@ import LinkUrlControl from '../_components/linkurlcontrol.jsx';
 }
  */
 
-import { Component } from '@wordpress/element';
 import { URLInput, RichText } from '@wordpress/block-editor';
+import { BaseControl } from '@wordpress/components';
+import { Component } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 
 const LinkUrlControl = ( props ) => {
 
-	const { attributes, className, setAttributes, label } = props;
+	const { attributes, className, setAttributes, label, help } = props;
 	const class_name = className || 'o-link';
 
 	return (
-		<div>
-			<div className="components-base-control">
-				{ !!label &&
-					<label class="components-base-control__label">{ label }</label>
-				}
-				<URLInput
-					className='o-linkurlcontrol'
-					value={attributes.linkUrl}
-					onChange={(value) => {
-						setAttributes({linkUrl: value.replace(/<\/?[^>]+(>|$)/g, '')});
-					}}
-				/>
-			</div>
-		</div>
+		<BaseControl
+			label={label}
+			help={help}
+			>
+			<URLInput
+				className='o-linkurlcontrol'
+				value={attributes.linkUrl}
+				onChange={(value) => {
+					setAttributes({linkUrl: value.replace(/<\/?[^>]+(>|$)/g, '')});
+				}}
+			/>
+		</BaseControl>
 	);
 }
 
