@@ -98,40 +98,19 @@ Standard value: `{}`
 ### setAttributes
 The `setAttributes` function from the Block properties. (**Required**.)
 
-## Usage:
+## Usage example
 ```jsx
 import ImageSelectorWithPlaceholder from '../../_components/ImageSelectorWithPlaceholder.jsx';
 
-<ImageSelector
+<ImageSelectorWithPlaceholder
 	attributes={attributes}
 	setAttributes={setAttributes}
-	imageAttribute={image}
-	externalURLAttribute={externalURL}
-	imageFormat="full"
-	allowURL={false}
-	accept=['.jpg,.svg']
-	allowedTypes={['image/jpg','image/svg+xml']}
+	allowedTypes={['image/png','image/svg+xml']}
+	accept={'image/png,image/svg+xml'}
+	allowURL={true}
 	labels={{
 		title: _x('Logo auswählen', 'MediaPlaceholder title', 'sha'),
-		instructions: _x('Bitte wählen Sie einen Logo aus. (PNG oder SVG erlaubt.)', 'MediaPlaceholder instructions', 'sha')
+		instructions: _x('Bitte wählen Sie ein Logo aus. (PNG oder SVG.)', 'MediaPlaceholder instructions', 'sha')
 	}}
-/>
-```
-
-OR
-
-```jsx
-<ImageSelector
-	attributes={attributes}
-	setAttributes={setAttributes}
-	allowURL={false}
-/>
-```
-
-OR
-```jsx
-<ImageSelector
-	attributes={attributes}
-	setAttributes={setAttributes}
 />
 ```
