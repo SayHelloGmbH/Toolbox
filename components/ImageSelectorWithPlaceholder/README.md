@@ -5,6 +5,16 @@ uploader tool in the Block content area with buttons for Media Library, Upload
 and Insert from URL. If an image is selected, the inline uploader is hidden and 
 editing takes place via a `Button` in the `Toolbar`.
 
+## Preview
+
+### MediaPlaceholder
+
+![MediaPlaceholder](./MediaPlaceholder.png | width=200)
+
+### MediaReplaceFlow
+
+![MediaReplaceFlow](./MediaReplaceFlow.png | width=200)
+
 ## Author
 
 * mark@sayhello.ch
