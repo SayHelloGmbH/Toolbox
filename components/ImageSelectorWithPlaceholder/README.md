@@ -66,6 +66,9 @@ accept. Standard value: `'image'`
 Whether or not to allow an external URL to be used as a source for the image. 
 Standard value: `false`
 
+### attributes
+The attributes object from the Block. (**Required**.)
+
 ### imageAttribute
 The Block attribute key to which the selected image object will be saved. 
 Standard value: `'image'`
@@ -82,7 +85,9 @@ Standard value: `'full'`
 The labels object to be passed to the `MediaPlaceholder` component. ([Details](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/media-placeholder#labels).)
 Standard value: `{}`
 
-### imageAttribute
+### setAttributes
+The `setAttributes` function from the Block properties. (**Required**.)
+
 ## Usage:
 ```jsx
 import ImageSelectorWithPlaceholder from '../../_components/ImageSelectorWithPlaceholder.jsx';
