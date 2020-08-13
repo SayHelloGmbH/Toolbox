@@ -9,11 +9,11 @@ editing takes place via a `Button` in the `Toolbar`.
 
 ### MediaPlaceholder
 
-![MediaPlaceholder](./MediaPlaceholder.png | width=200)
+![MediaPlaceholder](./MediaPlaceholder.png)
 
 ### MediaReplaceFlow
 
-![MediaReplaceFlow](./MediaReplaceFlow.png | width=200)
+![MediaReplaceFlow](./MediaReplaceFlow.png)
 
 ## Author
 
