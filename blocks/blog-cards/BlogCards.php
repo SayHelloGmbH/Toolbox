@@ -27,13 +27,13 @@ class BlogCards
 		$posts = get_posts([
 			'post_type' => 'post',
 			'post_status' => 'publish',
-			'posts_per_page' => 4,
+			'posts_per_page' => 3,
 			'ignore_sticky' => true
 		]);
 
-		if (count($posts) > 4) {
+		if (count($posts) > 3) {
 			// Sticky post!
-			$posts = array_slice($posts, 0, 4);
+			$posts = array_slice($posts, 0, 3);
 		}
 
 		if (!count($posts)) {
@@ -41,7 +41,7 @@ class BlogCards
 		}
 
 		ob_start();
-		sht_theme()->getTemplatePart('partials/block/blog-cards', [
+		get_template_part('partials/block/blog-cards', null, [
 			'attributes' => $attributes,
 			'posts' => $posts
 		]);
