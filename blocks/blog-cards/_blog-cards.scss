@@ -2,7 +2,7 @@
 	&__entries {
 		list-style: none;
 		padding-left: 0;
-		@extend .h-stack--xlarge;
+		@extend %h-stack--large;
 		@include tablet {
 			display: flex;
 			flex-flow: row wrap;
@@ -11,8 +11,9 @@
 			margin-right: calc(var(--unit) * -1);
 		}
 	}
+
 	&__entry {
-		@extend .h-stack;
+		@extend %h-stack;
 		@include tablet {
 			display: flex;
 			flex-direction: column;
@@ -32,29 +33,36 @@
 			margin: 0 var(--unit);
 		}
 	}
+
 	&__entrydate {
 		@extend .c-article__date;
 		margin-top: 0;
 	}
+
 	&__excerpt {
 		font-size: var(--font-size-small);
 	}
+
 	&__figure {
 		position: relative;
 		overflow: hidden;
 		background: c(gray, dark);
 		height: 0;
 		padding-bottom: percentage(198/296); // Fixed image proportion
+
 		&--empty {
 			opacity: .1;
 		}
 	}
+
 	&__figurelink {
 		display: block;
 	}
+
 	&__header {
 		text-align: center;
 	}
+
 	&__image {
 		@include flood;
 		top: 50%;
@@ -65,8 +73,9 @@
 			object-position: center;
 		}
 	}
+
 	&__inner {
-		@extend .h-stack--large;
+		@extend %h-stack--large;
 		padding-left: var(--unit-medium);
 		padding-right: var(--unit-medium);
 		@include desktop {
@@ -74,13 +83,23 @@
 			padding-right: 0;
 		}
 	}
+
 	&__readmore {
 		font-size: var(--font-size-small);
 	}
+
 	&__readmorewrap {
 		@include tablet {
 			padding-top: var(--unit);
 			margin-top: auto;
+		}
+	}
+}
+
+@include context-edit {
+	.wp-block-sht-blog-cards {
+		a {
+			pointer-events: none;
 		}
 	}
 }
