@@ -25,6 +25,14 @@ import LinkUrlControl from '../_components/linkurlcontrol.jsx';
 		attributes={attributes}
 	/>
 }
+ * 5:
+ * Add the following to the admin.scss file:
+ .o-linkurlcontrol {
+	.block-editor-url-input__input {
+		max-width: 100%;
+		border: 1px solid #757575 !important; // should be in core, but isn't
+	}
+}
  */
 
 import { URLInput, RichText } from '@wordpress/block-editor';
