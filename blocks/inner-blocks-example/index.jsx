@@ -10,7 +10,7 @@ registerBlockType( blockName , {
 	icon: 'list-view',
 	category: 'widgets',
 	keywords: [
-		_x('Event', 'Block keyword', 'sha'),
+		_x('Block', 'Block keyword', 'sha'),
 	],
 	supports: {
 		mode: false,
@@ -22,7 +22,9 @@ registerBlockType( blockName , {
 			this.props = props;
 		}
 
-		render({ className }) {
+		render() {
+
+			const { className } = this.props;
 
 			return (
 				<div className={className}>
