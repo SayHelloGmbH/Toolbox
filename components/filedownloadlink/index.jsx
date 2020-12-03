@@ -3,6 +3,16 @@
  * Pass file (the file ID) and classNameBase (a string)
  * in as component properties.
  *
+ * If the file is coming from Media entries, then you'll
+ * need to render the link in the save function using
+ * an as-yet unprogrammed server-side solution. Otherwise, 
+ * if the Media entry is changed (e.g. new title or new 
+ * file), then a hard-coded URL in the Block won't be 
+ * updated automatically.
+ * 
+ * This only works in the Editor. The use of withSelect
+ * in the save funtion throws a hook error in React.
+ *
  * The data source_url and title.rendered are pulled
  * in from the REST API using data select. Intended
  * for use in the Gutenberg Editor.
@@ -36,12 +46,8 @@ let FileDownloadLink = ( { classNameBase, file, fileData } ) => {
 	);
 };
 
-FileDownloadLink = withSelect( ( select, props ) => {
-	let data = {};
-	if(!!props.file){
-		data.fileData = select( 'core' ).getMedia( props.file );
-	}
-	return data;
+export default withSelect( ( select, props ) => {
+	return {
+		fileData: select( 'core' ).getMedia( props.file );
+	};
 })( FileDownloadLink );
-
-export default FileDownloadLink;
