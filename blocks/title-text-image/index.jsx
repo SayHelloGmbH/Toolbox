@@ -20,10 +20,11 @@ import { Component } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 
 import { gutenberg_phone as icon } from '../../icons/index.jsx';
-import ImageSelectorWithPlaceholder from '../_shared/ImageSelectorWithPlaceholder/index.jsx';
-import { LazyImage } from '../_shared/lazyimage.jsx';
+import ImageSelectorWithPlaceholder from '../_components/ImageSelectorWithPlaceholder/index.jsx';
+import { LazyImage } from '../_components/lazyimage.jsx';
 
 const blockName = 'sht/contact-info';
+const classNameBase = getBlockDefaultClassName( blockName );
 
 registerBlockType( blockName, {
 	title: _x( 'Kontaktangaben', 'Block title', 'sha' ),
@@ -43,9 +44,9 @@ registerBlockType( blockName, {
 	},
 	attributes: {
 		externalURL: {
-			source: "attribute",
-			selector: "img.wp-block-sht-contact-info__imagefromurl",
-			attribute: "src"
+			source: 'attribute',
+			selector: `img.${classNameBase}__imagefromurl`,
+			attribute: 'src'
 		},
 		image: {
 			type: 'Object',
@@ -54,10 +55,10 @@ registerBlockType( blockName, {
 			}
 		},
 		text: {
-			type: "string"
+			type: 'string'
 		},
 		title: {
-			type: "string"
+			type: 'string'
 		}
 	},
 	edit: class extends Component {
@@ -87,7 +88,7 @@ registerBlockType( blockName, {
 									accept={'image/jpeg'}
 									allowURL={false}
 									labels={{
-										title: _x('Logo auswählen', 'MediaPlaceholder title', 'sha'),
+										title: _x('Bild auswählen', 'MediaPlaceholder title', 'sha'),
 										instructions: _x('Bitte wählen Sie ein Bild aus. (JPG.)', 'MediaPlaceholder instructions', 'sha')
 									}}
 									/>
