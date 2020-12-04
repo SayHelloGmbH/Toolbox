@@ -56,8 +56,6 @@ registerBlockType( blockName, {
 
 		render() {
 
-			const classNameBase = getBlockDefaultClassName( blockName );
-
 			const { attributes, className, setAttributes } = this.props;
 
 			const { imageExternalURL, image, text } = attributes;
@@ -110,30 +108,30 @@ registerBlockType( blockName, {
 	},
 	save( { attributes, className } ) {
 
-		const classNameBase = getBlockDefaultClassName( blockName );
-
 		const { imageExternalURL, image, text } = attributes;
 
 		return (
 			<div className={ className }>
 
-				<div className={`${classNameBase}__figurewrap`}>
-					{ !!image.id &&
-						<LazyImage className={`${classNameBase}__figure`} image={image} background={false} admin={false}/>
-					}
-					{
-						!!imageExternalURL && !image.id &&
-						<figure className={`${classNameBase}__figure`}>
-							<img className={`${classNameBase}__imagefromurl`} src={imageExternalURL} alt={text} />
-						</figure>
-					}
-				</div>
-				<div className={`${classNameBase}__contentwrap`}>
-					<RichText.Content
-						className={`${classNameBase}__text`}
-						value={text}
-						tagName='p'
-					/>
+				<div className={`${classNameBase}__inner`}>
+					<div className={`${classNameBase}__figurewrap`}>
+						{ !!image.id &&
+							<LazyImage className={`${classNameBase}__figure`} image={image} background={false} admin={false}/>
+						}
+						{
+							!!imageExternalURL && !image.id &&
+							<figure className={`${classNameBase}__figure`}>
+								<img className={`${classNameBase}__imagefromurl`} src={imageExternalURL} alt={text} />
+							</figure>
+						}
+					</div>
+					<div className={`${classNameBase}__contentwrap`}>
+						<RichText.Content
+							className={`${classNameBase}__text`}
+							value={text}
+							tagName='p'
+						/>
+					</div>
 				</div>
 			</div>
 		);
