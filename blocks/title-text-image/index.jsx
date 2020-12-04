@@ -13,13 +13,14 @@
  * mark@sayhello.ch, November 2020
  */
 
-
+// WordPress
 import { RichText } from '@wordpress/block-editor';
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import { Component } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
+import { sayhello as icon } from '../../icons/index.jsx';
 
-import { gutenberg_phone as icon } from '../../icons/index.jsx';
+// Say Hello
 import ImageSelectorWithPlaceholder from '../_components/ImageSelectorWithPlaceholder/index.jsx';
 import { LazyImage } from '../_components/lazyimage.jsx';
 
@@ -27,8 +28,8 @@ const blockName = 'sht/contact-info';
 const classNameBase = getBlockDefaultClassName( blockName );
 
 registerBlockType( blockName, {
-	title: _x( 'Kontaktangaben', 'Block title', 'sha' ),
-	description: _x( 'Block mit zwei Textabschnitte und einem Bild, die für die Abbildung von Kontaktinformation vorgesehen ist.', 'Block title', 'sha' ),
+	title: _x( 'Titel, Text, Bild', 'Block title', 'sha' ),
+	description: _x( 'Block mit einem Titel, einen Text und einem Bild.', 'Block title', 'sha' ),
 	icon,
 	category: 'design',
 	supports: {
