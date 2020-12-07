@@ -6,7 +6,7 @@ Nutzt ACF und die Google Maps API.
 
 ## Frontend
 
-![Preview Frontend](./location-map-frontend.jpg?v=2)
+![Preview Frontend](./location-map-frontend-v2.jpg)
 
 ## Backend
 
