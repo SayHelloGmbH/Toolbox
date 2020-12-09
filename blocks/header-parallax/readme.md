@@ -22,7 +22,7 @@ made available for selection as a gradient colour and as a text colour.
 ### JavaScript
 
 - Install [jquery.parallax](https://github.com/pixelcog/parallax.js/) from npm: `npm i --save jquery-parallax.js`
-- Add _parallax.js to the regular _scripts_ folder as _scripts/parallax/index.js_.
+- Add [the parallax.js file](./scripts/parallax.js) to the regular _scripts_ folder as _scripts/parallax/index.js_.
 - Add the snippet from [this example code](./scripts/index.js) to _scripts/ui/index.js_. This will only load the parallax scripts in the front-end if there is a parallax element on the page.
 
 ### SCSS
