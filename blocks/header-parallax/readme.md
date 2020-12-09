@@ -8,6 +8,8 @@ Provides a header element (similar to the Cover Block) with a true parallax-effe
 * Source: https://pixelcog.github.io/parallax.js/
 * As a WordPress Block: https://posthuis.ch/
 
+![Preview](./header-parallax.jpg)
+
 ## Usage
 
 ### Gutenberg
