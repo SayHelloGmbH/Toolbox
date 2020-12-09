@@ -26,11 +26,14 @@ class Gallery
 				],
 				'className' => [
 					'type'  => 'string',
+				],
+				'updated' => [
+					'type'  => 'integer',
 				]
 			],
 			'render_callback' => function ($attributes, $content, $block) {
 				ob_start();
-				get_template_part('/partials/block/event-gallery', null, [
+				get_template_part('/partials/block/gallery', null, [
 					'attributes' => $attributes,
 					'content' => $content,
 					'block' => $block
