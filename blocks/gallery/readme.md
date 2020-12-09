@@ -8,7 +8,11 @@ WordPress Core and a server-side rendered output.
 - Add the JavaScript files in their folder to the normal structure in the Theme.
 - Add the Package file in the usual location.
 - Add the template partial in the indicated location.
+
+## Notes
+
 - This Block example contains no CSS, as each project can be comparatively unique.
+- The `updated` attribute only serves to force the server-side render to update. Without this, if the array of image IDs isn't changed when the media uploader closes (even if a caption is changed), then the editor won't re-load the view.
 
 ## Requirements
 
