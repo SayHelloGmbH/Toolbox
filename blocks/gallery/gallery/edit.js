@@ -20,7 +20,7 @@ export default class Edit extends Component {
 
     render() {
         const { attributes, setAttributes } = this.props;
-        const { className, images } = attributes;
+        const { className, images, updated } = attributes;
 
         setAttributes({ className: classNameBase });
 
@@ -35,7 +35,11 @@ export default class Edit extends Component {
                                     selection.map(image => {
                                         images.push(image.id);
                                     });
-                                    setAttributes({ images });
+
+									// Force the server-side render to update
+									// so that e.g. new captions are correctly
+									// displayed
+                                    setAttributes({ images, updated: Date.now() });
                                 }}
                                 allowedTypes={['image']}
                                 value={images ? images : undefined}
@@ -64,7 +68,7 @@ export default class Edit extends Component {
                 {images && (
                     <ServerSideRender
                         block='sht/gallery'
-                        attributes={{ className: className, images: images }}
+                        attributes={{ className: className, images: images, updated: updated }}
                     />
                 )}
             </Fragment>
