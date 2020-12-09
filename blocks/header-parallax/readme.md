@@ -1,5 +1,12 @@
 # Gutenberg Block: Header with Parallax
 
+Provides a header element (similar to the Cover Block) with a true parallax-effect on the image. 
+(The “parallax” effect on the Cover Block is only a fixed background image, not a true parallax effect.)
+
+## Demo
+
+* Source: https://pixelcog.github.io/parallax.js/
+* As a WordPress Block: https://posthuis.ch/
 
 ## Usage
 
@@ -14,11 +21,11 @@ made available for selection as a gradient colour and as a text colour.
 
 - Install [jquery.parallax](https://github.com/pixelcog/parallax.js/) from npm: `npm i --save jquery-parallax.js`
 - Add _parallax.js to the regular _scripts_ folder as _scripts/parallax/index.js_.
-- Add the snippet from [this example code](./scripts/index.js) to _scripts/ui/index.js_.
+- Add the snippet from [this example code](./scripts/index.js) to _scripts/ui/index.js_. This will only load the parallax scripts in the front-end if there is a parallax element on the page.
 
 ### SCSS
 
-- Add _sht-header-parallax.scss_ to the regular SCSS structure.
+- Add [the CSS file](./_sht-header-parallax.scss) to the regular SCSS structure.
 
 ## Author
 
