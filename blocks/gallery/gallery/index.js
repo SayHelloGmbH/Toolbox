@@ -28,6 +28,9 @@ registerBlockType(blockName, {
             type: 'Array',
             default: false,
         },
+		updated: {
+            type: 'integer',
+        },
     },
     edit,
     save() {
