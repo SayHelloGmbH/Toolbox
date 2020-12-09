@@ -1,3 +1,4 @@
+// Add the following to the base scripts/ui/index.js file
 // sht_theme_data.directory_uri is passed in from PHP using wp_localize_script in the Assets Package
 
 if (document.querySelectorAll('[data-parallax]').length) {
