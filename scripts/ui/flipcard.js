@@ -8,6 +8,9 @@
  * has been applied, so that the initial touch on 
  * mobile doesn't cause the link to be activated.
  *
+ * Clicking outside the c-flipcard element removes all 
+ * instances of the .is--flipped class.
+ *
  * mark@sayhello.ch December 2020
  */
 
