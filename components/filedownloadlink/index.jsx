@@ -17,6 +17,16 @@
  * in from the REST API using data select. Intended
  * for use in the Gutenberg Editor.
  *
+ * Usage:
+ 
+import { getBlockDefaultClassName } from '@wordpress/blocks';
+let classNameBase = getBlockDefaultClassName( 'sht/my-block-name' );
+
+…
+
+<FileDownloadLink file={attributes.file_id} classNameBase={ classNameBase } />
+ 
+ *
  * Since 3.12.2020 mark@sayhello.ch
  *
  */
