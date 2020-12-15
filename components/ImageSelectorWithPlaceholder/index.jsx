@@ -27,6 +27,7 @@ export default class ImageSelectorWithPlaceholder extends Component {
             accept,
             allowedTypes,
             labels,
+            labelReplace,
         } = this.props;
 
         this.accept_types = accept || 'image/*';
@@ -36,6 +37,8 @@ export default class ImageSelectorWithPlaceholder extends Component {
         this.image_format = imageFormat || 'full';
         this.url_attribute_key = imageExternalURLAttribute || 'imageExternalURL';
         this.labels_object = labels || {};
+        this.label_replace =
+            this.labels_object.replace || _x('Bild ersetzen', 'MediaFlow replace label', 'sha');
 
         this.imageExternalURL_attribute = attributes[this.url_attribute_key];
 
@@ -115,7 +118,7 @@ export default class ImageSelectorWithPlaceholder extends Component {
                     <BlockControls>
                         <Toolbar>
                             <MediaReplaceFlow
-                                name={_x('Bild ersetzen', 'MediaReplaceFlow label', 'sha')}
+                                name={this.label_replace}
                                 mediaId={image.id}
                                 mediaURL={this.imageExternalURL_attribute}
                                 accept={this.accept_types}
