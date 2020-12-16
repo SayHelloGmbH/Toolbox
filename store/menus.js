@@ -1,28 +1,30 @@
 import apiFetch from '@wordpress/api-fetch';
 import { registerStore } from '@wordpress/data';
 
+const route = 'sht/menus';
+
 const actions = {
-    setMenus(menus) {
+    setEntries(entries) {
         return {
-            type: 'SET_MENUS',
-            menus,
+            type: 'SET_ENTRIES',
+            entries,
         };
     },
-    getMenus(path) {
+    getEntries(path) {
         return {
-            type: 'GET_MENUS',
+            type: 'GET_ENTRIES',
             path,
         };
     },
 };
 
-registerStore('sht/menus', {
-    reducer(state = { menus: {} }, action) {
+registerStore(route, {
+    reducer(state = { entries: {} }, action) {
         switch (action.type) {
-            case 'SET_MENUS':
+            case 'SET_ENTRIES':
                 return {
                     ...state,
-                    menus: action.menus,
+                    entries: action.entries,
                 };
         }
 
@@ -32,22 +34,22 @@ registerStore('sht/menus', {
     actions,
 
     selectors: {
-        getMenus(state) {
-            const { menus } = state;
-            return menus;
+        getEntries(state) {
+            const { entries } = state;
+            return entries;
         },
     },
 
     controls: {
-        GET_MENUS(action) {
+        GET_ENTRIES(action) {
             return apiFetch({ path: action.path });
         },
     },
 
     resolvers: {
-        *getMenus(state) {
-            const menus = yield actions.getMenus('/sht/menus/');
-            return actions.setMenus(menus);
+        *getEntries() {
+            const entries = yield actions.getEntries(`/${route}/`);
+            return actions.setEntries(entries);
         },
     },
 });
