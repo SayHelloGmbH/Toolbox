@@ -5,7 +5,7 @@
  *
  * Usage:
  * 1:
-import LinkButton from '../vendor/LinkButton.jsx';
+import LinkButton from '../_components/LinkButton';
  *
  * 2:
 <LinkButton
