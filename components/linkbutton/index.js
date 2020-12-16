@@ -5,7 +5,7 @@
  *
  * Usage:
  * 1:
-import LinkButton from '../_components/LinkButton/index.js';
+import LinkButton from '../vendor/LinkButton.jsx';
  *
  * 2:
 <LinkButton
@@ -29,53 +29,39 @@ import LinkButton from '../_components/LinkButton/index.js';
 }
  */
 
-import { _x } from '@wordpress/i18n';
 import { RichText, URLInputButton } from '@wordpress/block-editor';
-import { Component } from '@wordpress/element';
+import { _x } from '@wordpress/i18n';
 
 const LinkButton = props => {
-	const { attributes, className, setAttributes } = props;
-	const class_name = className || 'o-button';
+    const { attributes, className, setAttributes } = props;
+    const class_name = className || 'o-button';
 
-	return (
-		<div>
-			<RichText
-				className={class_name}
-				value={attributes.buttonText}
-				allowedFormats={[]}
-				placeholder={_x(
-					'Button-Beschriftung',
-					'Button placeholder text',
-					'sht'
-				)}
-				onChange={value => {
-					setAttributes({
-						buttonText: value.replace(/<\/?[^>]+(>|$)/g, '')
-					});
-				}}
-			/>
-			<URLInputButton
-				url={attributes.buttonUrl}
-				onChange={value => {
-					setAttributes({
-						buttonUrl: value.replace(/<\/?[^>]+(>|$)/g, '')
-					});
-				}}
-			/>
-		</div>
-	);
+    return (
+        <div>
+            <RichText
+                className={class_name}
+                value={attributes.buttonText}
+                allowedFormats={[]}
+                placeholder={_x('Button-Beschriftung', 'Button placeholder text', 'sht')}
+                onChange={value => {
+                    setAttributes({ buttonText: value.replace(/<\/?[^>]+(>|$)/g, '') });
+                }}
+            />
+            <URLInputButton
+                url={attributes.buttonUrl}
+                onChange={value => {
+                    setAttributes({ buttonUrl: value.replace(/<\/?[^>]+(>|$)/g, '') });
+                }}
+            />
+        </div>
+    );
 };
 
 LinkButton.View = props => {
-	const class_name = props.className || 'o-button';
-	return (
-		<RichText.Content
-			className={class_name}
-			value={props.text}
-			tagName="a"
-			href={props.url}
-		/>
-	);
+    const class_name = props.className || 'o-button';
+    return (
+        <RichText.Content className={class_name} value={props.text} tagName='a' href={props.url} />
+    );
 };
 
 export default LinkButton;
