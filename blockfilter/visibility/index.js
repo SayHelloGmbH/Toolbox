@@ -1,5 +1,5 @@
 /**
- * Extending Gutenberg Core Blocks with Custom Attributes and Controls
+ * Add visibility toggle to Core Blocks, so that Blocks can be hidden per breakpoint
  * Thanks Jeffrey Carandang
  * https://jeffreycarandang.com/extending-gutenberg-core-blocks-with-custom-attributes-and-controls/
  */
