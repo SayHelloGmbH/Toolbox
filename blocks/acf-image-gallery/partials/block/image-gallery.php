@@ -16,7 +16,7 @@ if (empty($images = get_field('images'))) {
 $target_height = 300;
 $image_size = 'medium';
 
-if (get_field('image_size') ?? '' === 'small') {
+if ((get_field('image_size') ?? '') === 'small') {
 	$target_height = 200;
 	$image_size = 'thumbnail';
 }
