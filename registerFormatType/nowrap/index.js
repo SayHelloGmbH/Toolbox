@@ -1,3 +1,9 @@
+import { __ } from '@wordpress/i18n';
+import { Fragment } from '@wordpress/element';
+import { RichTextToolbarButton, RichTextShortcut } from '@wordpress/block-editor';
+import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
+import { moreHorizontal as icon } from '@wordpress/icons';
+
 export const nowrap = {
     name: 'sht/nowrap',
     title: __('Nicht umbrechen', 'sha'),
