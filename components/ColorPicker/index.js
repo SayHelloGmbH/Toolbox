@@ -24,7 +24,7 @@ import { ContrastChecker, PanelColorSettings } from '@wordpress/block-editor';
 import { _x } from '@wordpress/i18n';
 
 const ColorPicker = ({ props }) => {
-	const { backgroundColor, setBackgroundColor } = props;
+	const { backgroundColor, textColor, setBackgroundColor, setTextColor } = props;
 
 	return (
 		<PanelColorSettings
