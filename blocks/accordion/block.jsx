@@ -2,7 +2,7 @@ import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import { Component } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
-import { calendar as icon } from '@wordpress/icons';
+import { chevronDown as icon } from '@wordpress/icons';
 import classnames from 'classnames';
 
 const blockName = 'sht/accordion';
