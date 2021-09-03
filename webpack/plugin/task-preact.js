@@ -10,11 +10,11 @@ function getDirectories(path) {
     });
 }
 
-export const task = (config) => {
-    return new Promise((resolve) => {
+export const task = config => {
+    return new Promise(resolve => {
         const bundles = getDirectories(`${config.assetsBuild}preact/`);
         const entry = {};
-        bundles.forEach((bundle) => {
+        bundles.forEach(bundle => {
             const filePath = `${config.assetsBuild}preact/${bundle}/index.js`;
             if (fs.existsSync(filePath)) {
                 entry[bundle] = './' + filePath;
