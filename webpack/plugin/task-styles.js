@@ -9,7 +9,7 @@ import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import editorStyles from 'gulp-editor-styles';
 
-export const task = (config) => {
+export const task = config => {
     const blockFilter = filter(config.assetsBuild + 'styles/admin-editor.css', {
         restore: true,
     });
