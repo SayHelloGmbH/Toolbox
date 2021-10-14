@@ -36,7 +36,7 @@ foreach ($attributes['images'] as $image_id) {
 		$images[] = sprintf(
 			'<div class="%s__figurewrap">%s%s</div>',
 			$attributes['className'],
-			Lazysizes::getLazyImage($image_id, '3x2', "{$attributes['className']}__figure {$attributes['className']}__figure--mobile", "{$attributes['className']}__image {$attributes['className']}__image--mobile"),
+			'<figure class="' . $attributes['className'] . '__image">' . wp_get_attachment_image($image_id, 'thumbnail', false, ['class' => "{$attributes['className']}__image"]) . '</figure>',
 			!empty($caption = wp_get_attachment_caption($image_id)) ? sprintf(
 				'<figcaption>%s</figcaption>',
 				$caption
