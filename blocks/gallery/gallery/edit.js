@@ -1,9 +1,5 @@
 import { getBlockDefaultClassName } from '@wordpress/blocks';
-import {
-    InspectorControls,
-    MediaUpload,
-    MediaUploadCheck,
-} from '@wordpress/block-editor';
+import { InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { Button, PanelBody } from '@wordpress/components';
 import { Component, Fragment } from '@wordpress/element';
 import ServerSideRender from '@wordpress/server-side-render';
@@ -36,9 +32,9 @@ export default class Edit extends Component {
                                         images.push(image.id);
                                     });
 
-									// Force the server-side render to update
-									// so that e.g. new captions are correctly
-									// displayed
+                                    // Force the server-side render to update
+                                    // so that e.g. new captions are correctly
+                                    // displayed
                                     setAttributes({ images, updated: Date.now() });
                                 }}
                                 allowedTypes={['image']}
@@ -67,9 +63,14 @@ export default class Edit extends Component {
                 </InspectorControls>
                 {images && (
                     <ServerSideRender
-                        block='sht/gallery'
+                        block={blockName}
                         attributes={{ className: className, images: images, updated: updated }}
                     />
+                )}
+                {!images && (
+                    <div className='c-editormessage c-editormessage--error'>
+                        Keine Bilder ausgewählt.
+                    </div>
                 )}
             </Fragment>
         );
