@@ -8,14 +8,14 @@ const blockName = 'sht/gallery';
 
 registerBlockType(blockName, {
     title: _x('Bildergalerie', 'Block title', 'sha'),
-    description: _x(
-        'Stellt eine Auswahl an Bilder dar, jeweils mit optionaler Bildlegende.',
-        'Block description',
-        'sha'
-    ),
+    description: _x('Stellt eine Auswahl an Bilder dar.', 'Block description', 'sha'),
     icon,
     category: 'media',
-    keywords: [_x('Bilder', 'Block keyword', 'sha'), 'image'],
+    keywords: [
+        _x('Bilder', 'Block keyword', 'sha'),
+        'image',
+        'gallery'
+    ],
     supports: {
         align: false,
         html: false,
@@ -28,7 +28,7 @@ registerBlockType(blockName, {
             type: 'Array',
             default: false,
         },
-		updated: {
+        updated: {
             type: 'integer',
         },
     },
