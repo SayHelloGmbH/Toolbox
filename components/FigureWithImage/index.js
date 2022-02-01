@@ -38,6 +38,7 @@ export const FigureWithImage = ({ classNameBase, image }) => {
                 className={`${classNameBase}__image`}
                 width={width}
                 height={height}
+                loading={'lazy'}
             />
         </figure>
     );
