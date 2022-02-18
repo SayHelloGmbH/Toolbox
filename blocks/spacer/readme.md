@@ -10,4 +10,4 @@ the Theme), which allows for a better adjustment across breakpoints.
 
 Use `wp.hooks.addFilter` and `lodash.assign` to extend `settings.styles` on the block.
 
-* [Extend spacer sizes](https://github.com/SayHelloGmbH/Gutenberg/blob/master/blockfilter/spacer-sizes.js)
+* [Extend spacer sizes](https://github.com/SayHelloGmbH/Gutenberg/blob/master/blockfilter/spacer-sizes/index.js)
