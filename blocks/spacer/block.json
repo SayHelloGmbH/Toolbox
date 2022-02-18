@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "sht/spacer",
+    "title": "Abstandshalter",
+    "category": "design",
+    "icon": "resizeCornerNE",
+    "description": "Weissraum zwischen den Blöcken hinzufügen und dessen Höhe anpassen.",
+    "textdomain": "sha",
+    "attributes": {
+        "className": {
+            "type": "string"
+        }
+    },
+    "styles": [
+        { "name": "size-1", "label": "Grösse 4" },
+        { "name": "size-2", "label": "Grösse 8" },
+        { "name": "size-3", "label": "Grösse 12" },
+        { "name": "size-4", "label": "Grösse 16" },
+        { "name": "size-5", "label": "Grösse 20" },
+        { "name": "size-6", "label": "Grösse 24" },
+        { "name": "size-7", "label": "Grösse 36" },
+        { "name": "size-8", "label": "Grösse 48", "isDefault": true },
+        { "name": "size-9", "label": "Grösse 72" },
+        { "name": "size-10", "label": "Grösse 96" },
+        { "name": "size-11", "label": "Grösse 120" },
+        { "name": "size-12", "label": "Grösse 144" },
+        { "name": "size-13", "label": "Grösse 200" }
+    ]
+}
