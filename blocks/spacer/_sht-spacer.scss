@@ -1,0 +1,91 @@
+:root,
+body {
+    --spacer--size: var(--unit--8);
+}
+
+.wp-block-sht-spacer {
+    --wp--style--block-gap: 0;
+
+    & + * {
+        margin-top: 0 !important;
+    }
+
+    div {
+        padding-top: calc(var(--spacer--size) / 2);
+        padding-bottom: calc(var(--spacer--size) / 2);
+    }
+
+    &.is-style-size-1 {
+        --spacer--size: var(--unit--1);
+    }
+
+    &.is-style-size-2 {
+        --spacer--size: var(--unit--2);
+    }
+
+    &.is-style-size-3 {
+        --spacer--size: var(--unit--3);
+    }
+
+    &.is-style-size-4 {
+        --spacer--size: var(--unit--4);
+    }
+
+    &.is-style-size-5 {
+        --spacer--size: var(--unit--5);
+    }
+
+    &.is-style-size-6 {
+        --spacer--size: var(--unit--6);
+    }
+
+    &.is-style-size-7 {
+        --spacer--size: var(--unit--7);
+    }
+
+    &.is-style-size-8 {
+        --spacer--size: var(--unit--8);
+    }
+
+    &.is-style-size-9 {
+        --spacer--size: var(--unit--9);
+    }
+
+    &.is-style-size-10 {
+        --spacer--size: var(--unit--10);
+    }
+
+    &.is-style-size-11 {
+        --spacer--size: var(--unit--11);
+    }
+
+    &.is-style-size-12 {
+        --spacer--size: var(--unit--12);
+    }
+
+    &.is-style-size-13 {
+        --spacer--size: var(--unit--13);
+    }
+}
+
+@include context-edit {
+    .wp-block-sht-spacer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px dotted rgba(255, 0, 0, 0.5);
+
+        div::after {
+            color: rgba(255, 0, 0, 0.75);
+            text-align: center;
+            content: 'Abstandshalter';
+            font-size: 0.8em;
+        }
+    }
+}
+
+@include context-view {
+    .wp-block-sht-spacer {
+        margin: 0;
+    }
+}
