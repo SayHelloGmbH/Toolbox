@@ -5,7 +5,6 @@
  */
 
 import { addFilter } from '@wordpress/hooks';
-import { lodash } from 'lodash';
 
 addFilter('blocks.registerBlockType', 'sht/spacer-block-sizes', function (settings, name) {
     if (name === 'shb/spacer') {
