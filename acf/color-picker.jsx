@@ -20,3 +20,28 @@ domReady(() => {
 		return args;
 	});
 });
+
+/**
+ * 
+ * OR…
+ *
+ * Modify the ACF color picker with the colors from
+ * theme.json. Add this to .build/assets/scripts/admin/index.js
+ * Use this version if the color picker isn't on the editor view.
+ * (e.g. in the category editor.)
+ *
+ * If there are more than about 10 colors, the interface may
+ * not be brilliant. Not much can be done about that.
+ *
+ * 4.3.2022 mark@sayhello.ch
+ */
+
+import theme_json from '../../../../theme.json';
+const { settings } = theme_json;
+const { palette } = settings.color;
+
+acf.addFilter('color_picker_args', function (args) {
+    const colors = palette.map(color => color.color);
+    args.palettes = colors;
+    return args;
+});
