@@ -110,29 +110,12 @@ addFilter(
 );
 
 /**
- * Adds custom class name to the block in the saved element
- * if the toggled option is true
- */
-addFilter(
-    'blocks.getSaveContent.extraProps',
-    'sha/group-sha_padding-save-class-name',
-    (extraProps, blockType, attributes) => {
-        const { sha_padding } = attributes;
-
-        if (typeof sha_padding !== 'undefined' && allowedBlocks.includes(blockType.name)) {
-            extraProps.className = classnames(
-                extraProps.className,
-                `with-sha_padding--${sha_padding}`
-            );
-        }
-
-        return extraProps;
-    }
-);
-
-/**
- * Adds custom class name to the block in the editor
- * if the toggled option is true
+ * Adds a custom class name to the block in the editor.
+ * Sets the className attribute and then also passes it
+ * to the BlockListBlock component explicitly.
+ * This ensures that all classnames from all block
+ * filters are respected: therefore ensure that all block
+ * filters work in the same way!
  */
 addFilter(
     'editor.BlockListBlock',
@@ -142,8 +125,8 @@ addFilter(
             const { attributes, name } = props,
                 { className, sha_padding } = attributes;
 
-            if (allowedBlocks.includes(name) && !!sha_padding) {
-                props = Object.assign({}, props, {
+            if (allowedBlocks.includes(name)) {
+                props.attributes = Object.assign({}, props.attributes, {
                     className: classnames(className, {
                         [`with-sha_padding--${sha_padding}`]:
                             !!sha_padding && sha_padding !== 'standard',
@@ -151,7 +134,31 @@ addFilter(
                 });
             }
 
-            return <BlockListBlock {...props} />;
+            return <BlockListBlock {...props} className={props.attributes.className} />;
         };
     })
+);
+
+/**
+ * Adds custom class name to the block in the saved element
+ */
+addFilter(
+    'blocks.getSaveContent.extraProps',
+    'sha/group-sha_padding-save-class-name',
+    (extraProps, blockType, attributes) => {
+        const { sha_padding } = attributes;
+
+        if (
+            typeof sha_padding !== 'undefined' &&
+            sha_padding !== 'standard' &&
+            allowedBlocks.includes(blockType.name)
+        ) {
+            extraProps.className = classnames(
+                extraProps.className,
+                `with-sha_padding--${sha_padding}`
+            );
+        }
+
+        return extraProps;
+    }
 );
