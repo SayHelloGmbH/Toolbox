@@ -39,6 +39,14 @@ const controlOptions = [
         label: __('L', 'sha'),
         value: 'large',
     },
+    {
+        label: __('XL', 'sha'),
+        value: 'xlarge',
+    },
+    {
+        label: __('XXL', 'sha'),
+        value: 'xxlarge',
+    },
 ];
 
 /**
@@ -58,7 +66,7 @@ addFilter('blocks.registerBlockType', 'sha/group-sha_padding-attributes', settin
 });
 
 /**
- * Add Toggle Control
+ * Add Controls
  */
 addFilter(
     'editor.BlockEdit',
@@ -109,15 +117,13 @@ addFilter(
     'blocks.getSaveContent.extraProps',
     'sha/group-sha_padding-save-class-name',
     (extraProps, blockType, attributes) => {
-        const { className, sha_padding } = attributes;
+        const { sha_padding } = attributes;
 
         if (typeof sha_padding !== 'undefined' && allowedBlocks.includes(blockType.name)) {
-            extraProps = Object.assign({}, extraProps, {
-                className: classnames(className, {
-                    [`with-sha_padding--${sha_padding}`]:
-                        !!sha_padding && sha_padding !== 'standard',
-                }),
-            });
+            extraProps.className = classnames(
+                extraProps.className,
+                `with-sha_padding--${sha_padding}`
+            );
         }
 
         return extraProps;
