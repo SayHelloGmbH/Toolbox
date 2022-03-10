@@ -39,37 +39,38 @@ const controlOptions = [
         label: __('L', 'sha'),
         value: 'large',
     },
+    {
+        label: __('XL', 'sha'),
+        value: 'xlarge',
+    },
+    {
+        label: __('XXL', 'sha'),
+        value: 'xxlarge',
+    },
 ];
 
 /**
  * Add custom attribute to the block.
  */
-addFilter(
-    "blocks.registerBlockType",
-    "sha/group-sha_margin-attributes",
-    settings => {
-        if (
-            typeof settings.attributes !== "undefined" &&
-            allowedBlocks.includes(settings.name)
-        ) {
-            settings.attributes = Object.assign(settings.attributes, {
-                sha_margin: {
-                    type: "string",
-                    default: "standard",
-                },
-            });
-        }
-
-        return settings;
+addFilter('blocks.registerBlockType', 'sha/group-sha_margin-attributes', settings => {
+    if (typeof settings.attributes !== 'undefined' && allowedBlocks.includes(settings.name)) {
+        settings.attributes = Object.assign(settings.attributes, {
+            sha_margin: {
+                type: 'string',
+                default: 'standard',
+            },
+        });
     }
-);
+
+    return settings;
+});
 
 /**
- * Add Toggle Control
+ * Add Controls
  */
 addFilter(
-    "editor.BlockEdit",
-    "sha/group-sha_margin-control",
+    'editor.BlockEdit',
+    'sha/group-sha_margin-control',
     createHigherOrderComponent(BlockEdit => {
         return props => {
             const { name, attributes, setAttributes, isSelected } = props;
@@ -81,27 +82,20 @@ addFilter(
                     <BlockEdit {...props} />
                     {isSelected && allowedBlocks.includes(name) && (
                         <InspectorControls>
-                            <PanelBody
-                                title={__("Innenabstand", "sha")}
-                                initialOpen={true}>
+                            <PanelBody title={__('Innenabstand', 'sha')} initialOpen={true}>
                                 <ToggleGroupControl
                                     value={sha_margin}
-                                    onChange={sha_margin =>
-                                        setAttributes({ sha_margin })
-                                    }
+                                    onChange={sha_margin => setAttributes({ sha_margin })}
                                     label={__(
-                                        "Wählen Sie einen alternativen Innenabstand aus. (M ist die Standardgrösse.)"
+                                        'Wählen Sie einen alternativen Innenabstand aus. (M ist die Standardgrösse.)'
                                     )}
-                                    isBlock>
+                                    isBlock
+                                >
                                     {Object.keys(controlOptions).map(key => {
                                         return (
                                             <ToggleGroupControlOption
-                                                value={
-                                                    controlOptions[key].value
-                                                }
-                                                label={
-                                                    controlOptions[key].label
-                                                }
+                                                value={controlOptions[key].value}
+                                                label={controlOptions[key].label}
                                             />
                                         );
                                     })}
@@ -120,22 +114,16 @@ addFilter(
  * if the toggled option is true
  */
 addFilter(
-    "blocks.getSaveContent.extraProps",
-    "sha/group-sha_margin-save-class-name",
+    'blocks.getSaveContent.extraProps',
+    'sha/group-sha_margin-save-class-name',
     (extraProps, blockType, attributes) => {
-        const { className, sha_margin } = attributes;
+        const { sha_margin } = attributes;
 
-        if (
-            typeof sha_margin !== "undefined" &&
-            allowedBlocks.includes(blockType.name) &&
-            !!sha_margin
-        ) {
-            extraProps = Object.assign({}, extraProps, {
-                className: classnames(className, {
-                    [`with-sha_margin--${sha_margin}`]:
-                        !!sha_margin && sha_margin !== "standard",
-                }),
-            });
+        if (typeof sha_margin !== 'undefined' && allowedBlocks.includes(blockType.name)) {
+            extraProps.className = classnames(
+                extraProps.className,
+                `with-sha_margin--${sha_margin}`
+            );
         }
 
         return extraProps;
@@ -147,8 +135,8 @@ addFilter(
  * if the toggled option is true
  */
 addFilter(
-    "editor.BlockListBlock",
-    "sha/group-sha_margin-edit-class-name",
+    'editor.BlockListBlock',
+    'sha/group-sha_margin-edit-class-name',
     createHigherOrderComponent(BlockListBlock => {
         return props => {
             const { attributes, name } = props,
@@ -158,7 +146,7 @@ addFilter(
                 props = Object.assign({}, props, {
                     className: classnames(className, {
                         [`with-sha_margin--${sha_margin}`]:
-                            !!sha_margin && sha_margin !== "standard",
+                            !!sha_margin && sha_margin !== 'standard',
                     }),
                 });
             }
