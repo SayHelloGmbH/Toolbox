@@ -22,7 +22,7 @@ import classnames from 'classnames';
  */
 const allowedBlocks = ['core/group'];
 
-const paddingControlOptions = [
+const controlOptions = [
     {
         label: __('0', 'sha'),
         value: 'none',
@@ -44,10 +44,10 @@ const paddingControlOptions = [
 /**
  * Add custom attribute to the block.
  */
-addFilter('blocks.registerBlockType', 'sha/group-padding-attributes', settings => {
+addFilter('blocks.registerBlockType', 'sha/group-sha_padding-attributes', settings => {
     if (typeof settings.attributes !== 'undefined' && allowedBlocks.includes(settings.name)) {
         settings.attributes = Object.assign(settings.attributes, {
-            padding: {
+            sha_padding: {
                 type: 'string',
                 default: 'standard',
             },
@@ -62,12 +62,12 @@ addFilter('blocks.registerBlockType', 'sha/group-padding-attributes', settings =
  */
 addFilter(
     'editor.BlockEdit',
-    'sha/group-padding-control',
+    'sha/group-sha_padding-control',
     createHigherOrderComponent(BlockEdit => {
         return props => {
             const { name, attributes, setAttributes, isSelected } = props;
 
-            const { padding } = attributes;
+            const { sha_padding } = attributes;
 
             return (
                 <Fragment>
@@ -76,18 +76,18 @@ addFilter(
                         <InspectorControls>
                             <PanelBody title={__('Innenabstand', 'sha')} initialOpen={true}>
                                 <ToggleGroupControl
-                                    value={padding}
-                                    onChange={padding => setAttributes({ padding })}
+                                    value={sha_padding}
+                                    onChange={sha_padding => setAttributes({ sha_padding })}
                                     label={__(
                                         'Wählen Sie einen alternativen Innenabstand aus. (M ist die Standardgrösse.)'
                                     )}
                                     isBlock
                                 >
-                                    {Object.keys(paddingControlOptions).map(key => {
+                                    {Object.keys(controlOptions).map(key => {
                                         return (
                                             <ToggleGroupControlOption
-                                                value={paddingControlOptions[key].value}
-                                                label={paddingControlOptions[key].label}
+                                                value={controlOptions[key].value}
+                                                label={controlOptions[key].label}
                                             />
                                         );
                                     })}
@@ -107,14 +107,15 @@ addFilter(
  */
 addFilter(
     'blocks.getSaveContent.extraProps',
-    'sha/group-padding-save-class-name',
+    'sha/group-sha_padding-save-class-name',
     (extraProps, blockType, attributes) => {
-        const { className, padding } = attributes;
+        const { className, sha_padding } = attributes;
 
-        if (typeof padding !== 'undefined' && allowedBlocks.includes(blockType.name) && !!padding) {
+        if (typeof sha_padding !== 'undefined' && allowedBlocks.includes(blockType.name)) {
             extraProps = Object.assign({}, extraProps, {
                 className: classnames(className, {
-                    [`with-padding--${padding}`]: !!padding && padding !== 'standard',
+                    [`with-sha_padding--${sha_padding}`]:
+                        !!sha_padding && sha_padding !== 'standard',
                 }),
             });
         }
@@ -129,16 +130,17 @@ addFilter(
  */
 addFilter(
     'editor.BlockListBlock',
-    'sha/group-padding-edit-class-name',
+    'sha/group-sha_padding-edit-class-name',
     createHigherOrderComponent(BlockListBlock => {
         return props => {
             const { attributes, name } = props,
-                { className, padding } = attributes;
+                { className, sha_padding } = attributes;
 
-            if (allowedBlocks.includes(name) && !!padding) {
+            if (allowedBlocks.includes(name) && !!sha_padding) {
                 props = Object.assign({}, props, {
                     className: classnames(className, {
-                        [`with-padding--${padding}`]: !!padding && padding !== 'standard',
+                        [`with-sha_padding--${sha_padding}`]:
+                            !!sha_padding && sha_padding !== 'standard',
                     }),
                 });
             }
