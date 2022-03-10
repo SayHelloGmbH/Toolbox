@@ -24,19 +24,19 @@ const allowedBlocks = ['core/group'];
 
 const paddingControlOptions = [
     {
-        label: __('0', 'sht'),
+        label: __('0', 'sha'),
         value: 'none',
     },
     {
-        label: __('S', 'sht'),
+        label: __('S', 'sha'),
         value: 'small',
     },
     {
-        label: __('M', 'sht'),
+        label: __('M', 'sha'),
         value: 'standard',
     },
     {
-        label: __('L', 'sht'),
+        label: __('L', 'sha'),
         value: 'large',
     },
 ];
@@ -44,7 +44,7 @@ const paddingControlOptions = [
 /**
  * Add custom attribute to the block.
  */
-addFilter('blocks.registerBlockType', 'sht/group-padding-attributes', settings => {
+addFilter('blocks.registerBlockType', 'sha/group-padding-attributes', settings => {
     if (typeof settings.attributes !== 'undefined' && allowedBlocks.includes(settings.name)) {
         settings.attributes = Object.assign(settings.attributes, {
             padding: {
@@ -62,7 +62,7 @@ addFilter('blocks.registerBlockType', 'sht/group-padding-attributes', settings =
  */
 addFilter(
     'editor.BlockEdit',
-    'sht/group-padding-control',
+    'sha/group-padding-control',
     createHigherOrderComponent(BlockEdit => {
         return props => {
             const { name, attributes, setAttributes, isSelected } = props;
@@ -74,7 +74,7 @@ addFilter(
                     <BlockEdit {...props} />
                     {isSelected && allowedBlocks.includes(name) && (
                         <InspectorControls>
-                            <PanelBody title={__('Innenabstand', 'sht')} initialOpen={true}>
+                            <PanelBody title={__('Innenabstand', 'sha')} initialOpen={true}>
                                 <ToggleGroupControl
                                     value={padding}
                                     onChange={padding => setAttributes({ padding })}
@@ -107,7 +107,7 @@ addFilter(
  */
 addFilter(
     'blocks.getSaveContent.extraProps',
-    'sht/group-padding-save-class-name',
+    'sha/group-padding-save-class-name',
     (extraProps, blockType, attributes) => {
         const { className, padding } = attributes;
 
@@ -129,7 +129,7 @@ addFilter(
  */
 addFilter(
     'editor.BlockListBlock',
-    'sht/group-padding-edit-class-name',
+    'sha/group-padding-edit-class-name',
     createHigherOrderComponent(BlockListBlock => {
         return props => {
             const { attributes, name } = props,
