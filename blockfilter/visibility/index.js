@@ -2,6 +2,8 @@
  * Add visibility toggle to Core Blocks, so that Blocks can be hidden per breakpoint
  * Thanks Jeffrey Carandang
  * https://jeffreycarandang.com/extending-gutenberg-core-blocks-with-custom-attributes-and-controls/
+ *
+ * Current version mark@sayhello.ch 16.3.2022
  */
 
 import { __ } from '@wordpress/i18n';
@@ -13,21 +15,21 @@ import { InspectorControls } from '@wordpress/block-editor';
 
 import classnames from 'classnames';
 
-//restrict to specific blocks
-const allowedBlocks = ['core/paragraph', 'core/heading', 'core/buttons'];
+/**
+ * Restrict to specific blocks
+ */
+const allowedBlocks = ['core/group', 'core/columns', 'core/column'];
 
 /**
- * Add custom attribute for mobile visibility.
- *
- * @param {Object} settings Settings for the block.
- *
- * @return {Object} settings Modified settings.
+ * Add custom attributes for mobile visibility.
  */
-function addAttributes(settings) {
-    //check if object exists for old Gutenberg version compatibility
-    //add allowedBlocks restriction
-    if (typeof settings.attributes !== 'undefined' && allowedBlocks.includes(settings.name)) {
-        settings.attributes = Object.assign(settings.attributes, {
+addFilter('blocks.registerBlockType', 'sht/custom-attributes', settings => {
+    if (!allowedBlocks.includes(settings.name)) {
+        return settings;
+    }
+
+    return lodash.assign({}, settings, {
+        attributes: lodash.assign({}, settings.attributes, {
             hiddenForMobile: {
                 type: 'boolean',
                 default: false,
@@ -40,29 +42,28 @@ function addAttributes(settings) {
                 type: 'boolean',
                 default: false,
             },
-        });
-    }
-
-    return settings;
-}
+        }),
+    });
+});
 
 /**
- * Add mobile visibility controls on Advanced Block Panel.
- *
- * @param {function} BlockEdit Block edit component.
- *
- * @return {function} BlockEdit Modified block edit component.
+ * Add visibility controls as block panel.
  */
-const withAdvancedControls = createHigherOrderComponent(BlockEdit => {
-    return props => {
-        const { name, attributes, setAttributes, isSelected } = props;
+addFilter(
+    'editor.BlockEdit',
+    'sht/custom-advanced-control',
+    createHigherOrderComponent(BlockEdit => {
+        return props => {
+            const { name, attributes, setAttributes, isSelected } = props;
 
-        const { hiddenForMobile, hiddenForTablet, hiddenForDesktop } = attributes;
+            const { hiddenForMobile, hiddenForTablet, hiddenForDesktop } = attributes;
 
-        return (
-            <Fragment>
-                <BlockEdit {...props} />
-                {isSelected && allowedBlocks.includes(name) && (
+            if (!isSelected || !allowedBlocks.includes(name)) {
+                return <BlockEdit {...props} />;
+            }
+            return (
+                <Fragment>
+                    <BlockEdit {...props} />
                     <InspectorControls>
                         <PanelBody title={__('Sichtbarkeit', 'sht')} initialOpen={true}>
                             <ToggleControl
@@ -73,7 +74,7 @@ const withAdvancedControls = createHigherOrderComponent(BlockEdit => {
                                 }
                                 help={
                                     !!hiddenForMobile
-                                        ? __('Dieser Block ist versteckt auf Mobilgeräte.')
+                                        ? __('Dieser Block ist versteckt auf Mobilgeräte.', 'sha')
                                         : ''
                                 }
                             />
@@ -85,7 +86,7 @@ const withAdvancedControls = createHigherOrderComponent(BlockEdit => {
                                 }
                                 help={
                                     !!hiddenForTablet
-                                        ? __('Dieser Block ist versteckt auf Tabletts.')
+                                        ? __('Dieser Block ist versteckt auf Tabletts.', 'sha')
                                         : ''
                                 }
                             />
@@ -97,64 +98,46 @@ const withAdvancedControls = createHigherOrderComponent(BlockEdit => {
                                 }
                                 help={
                                     !!hiddenForDesktop
-                                        ? __('Dieser Block ist versteckt auf Desktopcomputer.')
+                                        ? __(
+                                              'Dieser Block ist versteckt auf Desktopcomputer.',
+                                              'sha'
+                                          )
                                         : ''
                                 }
                             />
                         </PanelBody>
                     </InspectorControls>
-                )}
-            </Fragment>
-        );
-    };
-}, 'withAdvancedControls');
+                </Fragment>
+            );
+        };
+    })
+);
 
 /**
- * Add custom element class in save element.
- *
- * @param {Object} extraProps     Block element.
- * @param {Object} blockType      Blocks object.
- * @param {Object} attributes     Blocks attributes.
- *
- * @return {Object} extraProps Modified block element.
+ * Add custom element class in save context.
  */
-function applyExtraClass(extraProps, blockType, attributes) {
-    const { hiddenForMobile, hiddenForTablet, hiddenForDesktop } = attributes;
+addFilter(
+    'blocks.getSaveContent.extraProps',
+    'sht/applyExtraClass',
+    (extraProps, blockType, attributes) => {
+        const { hiddenForMobile, hiddenForTablet, hiddenForDesktop } = attributes;
 
-    //check if attribute exists for old Gutenberg version compatibility
-    //add class only when hiddenForMobile = false
-    //add allowedBlocks restriction
-    if (
-        typeof hiddenForMobile !== 'undefined' &&
-        allowedBlocks.includes(blockType.name) &&
-        !!hiddenForMobile
-    ) {
-        extraProps.className = classnames(extraProps.className, 'hidden-for--mobile');
+        if (!allowedBlocks.includes(blockType.name)) {
+            return extraProps;
+        }
+
+        if (!!hiddenForMobile) {
+            extraProps.className = classnames(extraProps.className, 'is-hidden-for--mobile');
+        }
+
+        if (!!hiddenForTablet) {
+            extraProps.className = classnames(extraProps.className, 'is-hidden-for--tablet');
+        }
+
+        if (!!hiddenForDesktop) {
+            extraProps.className = classnames(extraProps.className, 'is-hidden-for--desktop');
+        }
+
+        return extraProps;
     }
-
-    if (
-        typeof hiddenForTablet !== 'undefined' &&
-        allowedBlocks.includes(blockType.name) &&
-        !!hiddenForTablet
-    ) {
-        extraProps.className = classnames(extraProps.className, 'hidden-for--tablet');
-    }
-
-    if (
-        typeof hiddenForDesktop !== 'undefined' &&
-        allowedBlocks.includes(blockType.name) &&
-        !!hiddenForDesktop
-    ) {
-        extraProps.className = classnames(extraProps.className, 'hidden-for--desktop');
-    }
-
-    return extraProps;
-}
-
-//add filters
-
-addFilter('blocks.registerBlockType', 'sht/custom-attributes', addAttributes);
-
-addFilter('editor.BlockEdit', 'sht/custom-advanced-control', withAdvancedControls);
-
-addFilter('blocks.getSaveContent.extraProps', 'sht/applyExtraClass', applyExtraClass);
+);
