@@ -1,4 +1,4 @@
-.hidden-for {
+.is-hidden-for {
     &--mobile {
         @include breakpoint(phone_wide down) {
             display: none !important;
