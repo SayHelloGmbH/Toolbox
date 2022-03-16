@@ -21,8 +21,44 @@ class Menus
 	{
 		register_rest_route('sht', '/menus', array(
 			'methods' => 'GET',
-			'callback' => function(){
-                return new WP_REST_Response(get_registered_nav_menus());
+			'permission_callback' => '__return_true',
+			'callback' => function () {
+				if (empty($nav_menus = wp_get_nav_menus())) {
+					return new WP_REST_Response($nav_menus);
+				}
+
+				$response_data = [];
+
+				foreach (array_values($nav_menus) as $values) {
+					$response_data[] = [
+						'slug' => $values->slug,
+						'id' => $values->term_id,
+						'title' => $values->name
+					];
+				}
+
+				return new WP_REST_Response($response_data);
+			},
+		));
+		
+		register_rest_route('sht', '/menu-positions', array(
+			'methods' => 'GET',
+			'permission_callback' => '__return_true',
+			'callback' => function () {
+				if (empty($nav_menus = get_registered_nav_menus())) {
+					return new WP_REST_Response($nav_menus);
+				}
+
+				$response_data = [];
+
+				foreach ($nav_menus as $key => $label) {
+					$response_data[] = [
+						'id' => $key,
+						'title' => $label
+					];
+				}
+
+				return new WP_REST_Response($response_data);
 			},
 		));
 	}
