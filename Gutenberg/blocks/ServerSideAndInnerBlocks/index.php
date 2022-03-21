@@ -2,14 +2,16 @@
 
 namespace SayHello\Theme\Block;
 
+use DOMDocument;
+use DOMXPath;
 use WP_Block;
 
 /**
- * Guest Author list/grid
- * Text and button are rendered using InnerBlocks
- * Other content is rendered server-side.
+ * Guest Author list
+ * Title, text and button are rendered using a
+ * combination of InnerBlocks and RichText
  *
- * @author Say Hello GmbH <hello@sayhello.ch>
+ * @author Mark Howells-Mead <mark@sayhello.ch>
  */
 class GuestAuthors
 {
@@ -21,6 +23,9 @@ class GuestAuthors
 
 	/**
 	 * Registers the block for server-side rendering
+	 * We have to register the title attribute even
+	 * though it's not being used server-side, so that
+	 * the editor doesn't bork at an invalid attribute.
 	 */
 	public function register()
 	{
@@ -40,37 +45,27 @@ class GuestAuthors
 					'order_by' => 'name'
 				]);
 
-				$user_list = [];
-
-				foreach ($users as $user) {
-					$user_list[] = '<li class="' . $classNameBase . '__entry">' . $user->display_name . '</li>';
-				}
-
 				ob_start();
-?>
-			<div <?php echo get_block_wrapper_attributes(); ?>>
 
-				<?php
-				// Output the title if there is one
-				$title = esc_html($attributes['title'] ?? '');
-				if (!empty($title)) {
-				?>
-					<h2 class="<?php echo $classNameBase; ?>__title"><?php echo $title; ?></h2>
-				<?php
+				if (empty($users)) {
+					echo $content;
+				} else {
+					libxml_use_internal_errors(true);
+
+					$document = new DOMDocument();
+					$document->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+					$body = $document->getElementsByTagName('body')[0]->childNodes[0];
+
+					foreach ($users as $user) {
+						$div = $document->createElement('DIV');
+						$div->setAttribute('class', "{$classNameBase}__cell");
+						$div->textContent = $user->display_name;
+						$body->appendChild($div);
+					}
+
+					echo $document->saveHtml($body);
 				}
 
-				// Output the list of users: 100% server-side generated
-				if (!empty($users)) {
-				?>
-					<ul class="<?php echo $classNameBase; ?>__entries"><?php echo implode(chr(10), $user_list); ?></ul>
-				<?php
-				}
-
-				// Output the editor-generated content
-				echo $content;
-				?>
-			</div>
-<?php
 				$html = ob_get_contents();
 				ob_end_clean();
 				return $html;
