@@ -2,19 +2,19 @@
  * Add/remove the 'c-flipcard' class when hovering (when
  * there is a mouse) or when touching (on mobile).
  *
- * All links on the element should be disabled with 
- * pointer-events: none; and only set back to 
- * pointer-events: all; when the is--flipped class 
- * has been applied, so that the initial touch on 
+ * All links on the element should be disabled with
+ * pointer-events: none; and only set back to
+ * pointer-events: all; when the is--flipped class
+ * has been applied, so that the initial touch on
  * mobile doesn't cause the link to be activated.
  *
- * Clicking outside the c-flipcard element removes all 
+ * Clicking outside the c-flipcard element removes all
  * instances of the .is--flipped class.
  *
- * mark@sayhello.ch December 2020
+ * This version mark@sayhello.ch March 2022
  */
 
-import * as settings from '../../../../assets/settings.json';
+import settings from '../../../../assets/settings.json';
 
 document.querySelectorAll('.c-flipcard').forEach(card => {
     card.addEventListener('touchstart', event => {
