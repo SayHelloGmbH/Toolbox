@@ -8,13 +8,13 @@
  * Usage:
 
 {!!image.id && (
-    <FigureWithImage classNameBase={classNameBase} image={image} />
+    <FigureWithImage classNameBase={classNameBase} image={image} focalPoint={focalPoint} lazy={true} />
 )}
 
- * mark@sayhello.ch 1.2.2022
+ * mark@sayhello.ch since 1.2.2022
  */
 
-export const FigureWithImage = ({ classNameBase, image }) => {
+export const FigureWithImage = ({ classNameBase, image, focalPoint, lazy = true }) => {
     if (!image.id) {
         return '';
     }
@@ -29,6 +29,12 @@ export const FigureWithImage = ({ classNameBase, image }) => {
             .join(', ');
     };
 
+    let image_style = {};
+
+    if (!!focalPoint) {
+        image_style.objectPosition = `${focalPoint.x * 100}% ${focalPoint.y * 100}%`;
+    }
+
     return (
         <figure className={`${classNameBase}__figure`}>
             <img
@@ -38,7 +44,8 @@ export const FigureWithImage = ({ classNameBase, image }) => {
                 className={`${classNameBase}__image`}
                 width={width}
                 height={height}
-                loading={'lazy'}
+                loading={!!lazy ? 'lazy' : 'eager'}
+                style={image_style}
             />
         </figure>
     );
