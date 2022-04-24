@@ -1,6 +1,8 @@
 # SBB Timetable Form
 
-This block adds the standard SBB timetable form to the page. Requests are sent to sbb.ch in a new window.
+This block adds the standard SBB timetable form to the page. Requests are sent to sbb.ch in a new window. 
+
+Code is intended for integration to a [Hello Roots](https://github.com/sayhellogmbh/hello-roots/) Theme for WordPress.
 
 ## Links
 
