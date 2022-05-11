@@ -47,7 +47,7 @@ const PreviewImage = props => {
     const { source_url } = imageData.media_details.sizes.medium;
     const { alt_text } = imageData;
 
-    return <img src={source_url} alt={alt_text} />;
+    return <img src={source_url} alt={alt_text} className={`${classNameBase}__image`} />;
 };
 
 const ImageSelector = props => {
@@ -65,7 +65,7 @@ const ImageSelector = props => {
                             setAttributes({ [attribute_key]: media.id });
                         }}
                         allowedTypes={allowed_types}
-                        value={attributes[attribute_key].id}
+                        value={attributes[attribute_key]}
                         render={({ open }) => {
                             const image = attributes[attribute_key];
 
@@ -96,7 +96,9 @@ const ImageSelector = props => {
                                                     )}
                                                 </Button>
                                                 <Button
-                                                    onClick={() => setAttributes({ image: 0 })}
+                                                    onClick={() =>
+                                                        setAttributes({ [attribute_key]: 0 })
+                                                    }
                                                     variant='link'
                                                     isDestructive
                                                 >
