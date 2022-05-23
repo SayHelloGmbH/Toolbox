@@ -5,7 +5,7 @@ import { __, _x } from '@wordpress/i18n';
 import { comment as icon } from '@wordpress/icons';
 import { Fragment } from 'react';
 
-import FigureWithImage from '../_components/figure-with-image';
+import FigureWithImageFromMedia from '../_components/figure-with-image-from-media';
 import ImageSelector from '../_components/image-selector';
 
 const blockName = 'sht/testimonial',
@@ -46,8 +46,6 @@ registerBlockType(blockName, {
         const { image, author_name, author_description, text } = attributes;
         const blockProps = useBlockProps();
 
-        console.log(image);
-
         return [
             <Fragment>
                 <InspectorControls>
@@ -86,7 +84,7 @@ registerBlockType(blockName, {
                             )}
 
                             {!!image.id && (
-                                <FigureWithImage
+                                <FigureWithImageFromMedia
                                     classNameBase={classNameBase}
                                     image={image}
                                     attributeKey={'image'}
@@ -149,7 +147,7 @@ registerBlockType(blockName, {
                     )}
                     <div className={`${classNameBase}__author-wrap`}>
                         {!!image.id && (
-                            <FigureWithImage
+                            <FigureWithImageFromMedia
                                 classNameBase={classNameBase}
                                 image={image}
                                 attributeKey={'image'}
