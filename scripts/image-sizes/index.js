@@ -5,7 +5,9 @@
  * Since 27.7.2022 mark@sayhello.ch
  *
  */
-const images = document.querySelectorAll('.wp-block-sht-image-map__figure img');
+const images = document.querySelectorAll(
+	'.wp-block-sht-image-map__figure img[srcset]'
+);
 
 if (images.length) {
 	const debounce = (callback, wait) => {
@@ -20,10 +22,6 @@ if (images.length) {
 
 	const set = debounce(() => {
 		images.forEach((image) => {
-			if (!image.hasAttribute('srcset')) {
-				return;
-			}
-
 			image.setAttribute(
 				'sizes',
 				`${image.getBoundingClientRect().width}px`
