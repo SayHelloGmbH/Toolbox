@@ -1,10 +1,10 @@
 {
     "key": "group_630782472a8b7",
-    "title": "Alternative Übersetzungen",
+    "title": "Alternative Translations",
     "fields": [
         {
             "key": "field_6307824f8e011",
-            "label": "Alternative Übersetzungen",
+            "label": "Alternative Translations",
             "name": "alternative_translations",
             "type": "repeater",
             "instructions": "",
@@ -23,7 +23,7 @@
             "sub_fields": [
                 {
                     "key": "field_630782778e012",
-                    "label": "Ursprüngliche Übersetzung",
+                    "label": "Original translation",
                     "name": "original",
                     "type": "text",
                     "instructions": "",
@@ -42,7 +42,7 @@
                 },
                 {
                     "key": "field_6307828e8e013",
-                    "label": "Alternative Übersetzung",
+                    "label": "Alternative translation",
                     "name": "alternative",
                     "type": "text",
                     "instructions": "",
