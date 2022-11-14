@@ -3,7 +3,7 @@
 	<CategorySelector
 		attributes={attributes}
 		setAttributes={setAttributes}
-		label={_x( 'Select a category', 'Select field label', 'shp_gantrisch_outdooractive' )}
+		label={_x( 'Select a category', 'Select field label', 'shp' )}
 	/>
  */
 
@@ -48,14 +48,12 @@ class CategorySelector extends Component {
 }
 
 export default withSelect((select, props) => {
-	const entries = select(
-		'shp_gantrisch_outdooractive/categories_for_select'
-	).getEntries();
+	const entries = select('shp/categories_for_select').getEntries();
 
 	let selectOptions = [
 		{
 			id: 0,
-			name: __('No selection', 'shp_gantrisch_outdooractive'),
+			name: __('No selection', 'shp'),
 		},
 	];
 
