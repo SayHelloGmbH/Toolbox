@@ -1,7 +1,9 @@
 /**
  * Hierarchical Post selector for Say Hello components
  * Requires the “terms” util.
- * mark@sayhello.ch 6.11.2019
+ * mark@sayhello.ch 12.1.2023
+ *
+ * output: 'select' (SelectControl), otherwise TreeSelect
  *
  * Usage:
  <PostTreeSelect
@@ -10,93 +12,120 @@
  	attributes={attributes}
  	setAttributes={setAttributes}
  	label={_x( 'Hauptausgabe auswählen', 'Select field label', 'sha' )}
+    query={{search:'Hello'}}
+    output={'select'}
  />
  */
 
 import { _x } from '@wordpress/i18n';
-import { Spinner, TreeSelect } from '@wordpress/components';
-import { select, withSelect } from '@wordpress/data';
+import { SelectControl, Spinner, TreeSelect } from '@wordpress/components';
+import { withSelect } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 
-import { buildTermsTree } from '../_utils/terms.jsx';
+import { buildTermsTree } from '../../_utils/terms/';
 
 class PostSelector extends Component {
-	constructor(props) {
-		super(...arguments);
-		this.props = props;
-	}
+    constructor(props) {
+        super(...arguments);
+        this.props = props;
+    }
 
-	/**
-	 * Must return a single DOM node, hence the anonymous wrapper
-	 */
-	render() {
-		const {
-			attributes,
-			name,
-			selectOptions,
-			setAttributes,
-			label
-		} = this.props;
-		const { post } = attributes;
+    render() {
+        const { attributes, selectOptions, setAttributes, label, attributeKey, output } =
+            this.props;
 
-		if (!selectOptions) {
-			return <Spinner />;
-		} else {
-			const treeOptions = buildTermsTree(
-				selectOptions.map(item => ({
-					id: item.id,
-					parent: item.parent,
-					name: item.title
-				}))
-			);
+        const attribute_key = attributeKey || 'post';
 
-			return (
-				<TreeSelect
-					label={label}
-					tree={treeOptions}
-					selectedId={post}
-					onChange={post => {
-						setAttributes({ post: post });
-					}}
-				/>
-			);
-		}
-	}
+        if (!selectOptions) {
+            return <Spinner />;
+        } else {
+            if (output === 'select') {
+                const options = selectOptions.map(item => ({
+                    value: item.id,
+                    label: item.title,
+                }));
+
+                return (
+                    <SelectControl
+                        label={label}
+                        value={attributes[attribute_key]}
+                        options={options}
+                        onChange={post => {
+                            setAttributes({ [attribute_key]: post });
+                        }}
+                    />
+                );
+            } else {
+                const treeMap = selectOptions.map(item => ({
+                    id: item.id,
+                    parent: item.parent,
+                    name: item.title,
+                }));
+
+                console.log(treeMap);
+
+                const treeOptions = buildTermsTree(treeMap);
+
+                return (
+                    <TreeSelect
+                        label={label}
+                        tree={treeOptions}
+                        selectedId={attributes[attribute_key]}
+                        onChange={post => {
+                            setAttributes({ [attribute_key]: post });
+                        }}
+                    />
+                );
+            }
+        }
+    }
 }
 
 export default withSelect((select, props) => {
-	const { getEntityRecords } = select('core');
+    const { getEntityRecords } = select('core');
+    const { orderBy, toplevel, postType, query } = props;
 
-	const order_by = props.orderBy || 'menu_order';
+    const order_by = orderBy || 'menu_order';
 
-	let posts = getEntityRecords('postType', props.postType, {
-		per_page: 100,
-		order_by: order_by,
-		order: 'asc'
-	});
+    const queryArgs = {
+        per_page: 100,
+        order_by: order_by,
+        order: 'asc',
+    };
 
-	if (!posts) {
-		return posts;
-	}
+    let queryArgsMerged = {
+        ...queryArgs,
+        ...query,
+    };
 
-	let selectOptions = [
-		{
-			label: _x('Auswählen', 'Default selector label', 'sha'),
-			value: ''
-		}
-	];
+    // Only posts with no parent
+    if (!!toplevel) {
+        queryArgsMerged.parent = 0;
+    }
 
-	posts.map(post => {
-		selectOptions.push({
-			id: post.id,
-			parent: post.parent,
-			title: post.title.raw
-				? post.title.raw
-				: `#${item.id} (${__('Kein Titel', 'sha')})`
-		});
-	});
+    let posts = getEntityRecords('postType', postType, queryArgsMerged);
 
-	return {
-		selectOptions: selectOptions
-	};
+    if (!posts) {
+        return posts;
+    }
+
+    let selectOptions = [
+        {
+            id: '',
+            parent: 0,
+            title: _x('Keine Auswahl', 'Default selector label', 'sha'),
+        },
+    ];
+
+    posts.map(post => {
+        selectOptions.push({
+            id: post.id,
+            parent: post.parent,
+            title: post.title.rendered
+                ? post.title.rendered
+                : `#${item.id} (${__('Kein Titel', 'sha')})`,
+        });
+    });
+
+    return { selectOptions };
 })(PostSelector);
