@@ -13,7 +13,7 @@
 import { isBlobURL } from '@wordpress/blob';
 import { Spinner } from '@wordpress/components';
 
-const LoadingImage = (props) => {
+const MediaUploadLoadingImage = (props) => {
 	const { classNameBase, image } = props;
 
 	const isUploadingMedia = !image.id && isBlobURL(image.url);
@@ -46,4 +46,4 @@ const LoadingImage = (props) => {
 	);
 };
 
-export default LoadingImage;
+export default MediaUploadLoadingImage;
