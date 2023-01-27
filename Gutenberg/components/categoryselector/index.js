@@ -2,59 +2,54 @@
  * Usage:
  <CategorySelector
 		category={attributes.category}
-		onChange={category => {
-		setAttributes({ category: category });
+		onChange={category => setAttributes({ category });
     }}/>
-*/
+ *
+ * mark@syhello.ch; this version since January 2023
+*/ 
 
 import { _x } from '@wordpress/i18n';
-import { SelectControl } from '@wordpress/components';
-import { Component } from '@wordpress/element';
-import { select, withSelect } from '@wordpress/data';
+import { Spinner, TreeSelect } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
+import { groupBy } from 'lodash';
 
-class CategorySelector extends Component {
-	constructor() {
-		super(...arguments);
-	}
+const CategorySelector = ({ category, onChange }) => {
+    const { categories } = useSelect(select => {
+        return {
+            categories: select('core').getEntityRecords('taxonomy', 'category'),
+        };
+    });
 
-	render() {
-		const { category, categories, onChange } = this.props;
+    if (!categories) {
+        return <Spinner />;
+    }
 
-		return (
-			<SelectControl
-				label={_x('Kategorie auswählen', 'Select field label', 'sht')}
-				value={category}
-				options={categories}
-				onChange={onChange}
-			/>
-		);
-	}
-}
+    function buildTermsTree(flatTerms) {
+        const termsByParent = groupBy(flatTerms, 'parent');
+        const fillWithChildren = terms => {
+            return terms.map(term => {
+                const children = termsByParent[term.id];
 
-export default withSelect((select, props) => {
-	let categories = [
-		{
-			label: _x('Auswählen', 'Default selector label', 'sht'),
-			value: ''
-		}
-	];
+                return {
+                    ...term,
+                    children: children && children.length ? fillWithChildren(children) : [],
+                };
+            });
+        };
 
-	let categoryEntries = select('core').getEntityRecords(
-		'taxonomy',
-		'category',
-		{
-			order_by: 'name',
-			per_page: -1
-		}
-	);
+        return fillWithChildren(termsByParent['0'] || []);
+    }
 
-	if (categoryEntries) {
-		categoryEntries.map(category => {
-			categories.push({ value: category.id, label: category.name });
-		});
-	}
+    const options = buildTermsTree(categories);
 
-	return {
-		categories: categories
-	};
-})(CategorySelector);
+    return (
+        <TreeSelect
+            label={_x('Kategorie auswählen', 'Select field label', 'sht')}
+            selectedId={category}
+            onChange={onChange}
+            tree={options}
+        />
+    );
+};
+
+export default CategorySelector;
