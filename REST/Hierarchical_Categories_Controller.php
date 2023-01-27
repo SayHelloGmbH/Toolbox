@@ -5,6 +5,10 @@
  * an a hierarchical structure. The use of children[] allows
  * the data to be used by the Gutenberg <TreeSelect /> Component.
  *
+ * Initialise using the rest_api_init hook.
+ * $hierarchical_categories_controller = new Hierarchical_Categories_Controller();
+ * $hierarchical_categories_controller->register_routes();
+ *
  * mark@sayhello.ch January 2023
  *
  * Ref 1: https://www.sitepoint.com/creating-custom-endpoints-for-the-wordpress-rest-api/
