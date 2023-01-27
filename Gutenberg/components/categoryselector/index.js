@@ -5,7 +5,7 @@
 		onChange={category => setAttributes({ category });
     }}/>
  *
- * mark@syhello.ch; this version since January 2023
+ * mark@sayhello.ch - this version since January 2023
 */ 
 
 import { _x } from '@wordpress/i18n';
