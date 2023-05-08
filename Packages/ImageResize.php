@@ -34,7 +34,7 @@ class ImageResize
 		$resized_image_url = str_replace($image_name, $resized_image_name, wp_get_attachment_url($media_id));
 
 		// If the image already exists on the server and WP_DEBUG is off, don't regenerate the image
-		if (file_exists($resized_image_path) && (!defined('WP_DEBUG') || WP_DEBUG)) {
+		if (file_exists($resized_image_path) && (!defined('WP_DEBUG') || !WP_DEBUG)) {
 			return $resized_image_url;
 		}
 
