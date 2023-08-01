@@ -1,55 +1,70 @@
 import apiFetch from '@wordpress/api-fetch';
-import { registerStore } from '@wordpress/data';
+import { createReduxStore, register } from '@wordpress/data';
 
-const route = 'sht/menus';
+// Some default values
+const DEFAULT_STATE = {
+		entries: false,
+	},
+	DEFAULT_ACTION = {};
 
+// Actions which can be carried out on the data store
 const actions = {
-    setEntries(entries) {
-        return {
-            type: 'SET_ENTRIES',
-            entries,
-        };
-    },
-    getEntries(path) {
-        return {
-            type: 'GET_ENTRIES',
-            path,
-        };
-    },
+	setState(item, entries) {
+		return {
+			type: 'GET_ENTRIES',
+			item,
+			entries,
+		};
+	},
+	fetchFromAPI(path) {
+		return {
+			type: 'FETCH_FROM_API',
+			path,
+		};
+	},
 };
 
-registerStore(route, {
-    reducer(state = { entries: {} }, action) {
-        switch (action.type) {
-            case 'SET_ENTRIES':
-                return {
-                    ...state,
-                    entries: action.entries,
-                };
-        }
+// Use as wp.data.select("sht/menu-positions")
+const store = createReduxStore('sht/menu-positions', {
+	reducer(state = DEFAULT_STATE, action = DEFAULT_ACTION) {
+		// Update the state with the fetched value
+		switch (action.type) {
+			case 'GET_ENTRIES':
+				const updated_state = {
+					...state,
+					entries: action.entries,
+				};
+				return updated_state;
+		}
 
-        return state;
-    },
+		return state;
+	},
 
-    actions,
+	actions,
 
-    selectors: {
-        getEntries(state) {
-            const { entries } = state;
-            return entries;
-        },
-    },
+	selectors: {
+		getEntries(state, item) {
+			// Get the value from the state object
+			const { entries } = state;
+			return entries;
+		},
+	},
 
-    controls: {
-        GET_ENTRIES(action) {
-            return apiFetch({ path: action.path });
-        },
-    },
+	controls: {
+		FETCH_FROM_API(action) {
+			// Get the data from the API route
+			return apiFetch({ path: action.path });
+		},
+	},
 
-    resolvers: {
-        *getEntries() {
-            const entries = yield actions.getEntries(`/${route}/`);
-            return actions.setEntries(entries);
-        },
-    },
+	resolvers: {
+		*getEntries(item) {
+			// Get the results from the API and update the state object.
+			const path = '/sht/menu-positions/';
+			const entries = yield actions.fetchFromAPI(path);
+			return actions.setState(item, entries);
+		},
+	},
 });
+
+register(store);
