@@ -1,17 +1,17 @@
 /*
  * Adds a Panel to the main Block Editor sidebar
- * and uses the custom component “PostSelectorCheckboxes”
- * to provide a hierarchical list of page checkboxes.
+ * and uses the custom component PostSelectorHierarchicalCheckboxes
+ * to provide a hierarchical list of hierarchical page checkboxes.
  *
- * In order to save / load the post meta “sht_related_post_ids”, 
+ * In order to save / load the post meta “sht_related_post_ids”,
  * it must be registered in PHP using “register_post_meta”.
  *
  * Since August 2023
  * mark[at]sayhello.ch
  *
  */
- 
-import { PostSelectorCheckboxes } from '../../_components/post-selector-checkboxes';
+
+import { PostSelectorHierarchicalCheckboxes } from '../../_components/post-selector-hierarchical-checkboxes';
 
 import { _x } from '@wordpress/i18n';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
@@ -32,7 +32,7 @@ let RelatedPostsPanel = ({ sht_related_post_ids, post_type, onUpdate }) => {
 
 	return (
 		<PluginDocumentSettingPanel title={_x('Verwandte Seiten', 'Editor sidebar panel title', 'sha')} initialOpen={true} icon={'invalid-name-no-icon'}>
-			<PostSelectorCheckboxes postType={post_type} onChange={(postIds) => onUpdate(postIds)} values={sht_related_post_ids} />
+			<PostSelectorHierarchicalCheckboxes postType={post_type} onChange={(postIds) => onUpdate(postIds)} values={sht_related_post_ids} />
 		</PluginDocumentSettingPanel>
 	);
 };
