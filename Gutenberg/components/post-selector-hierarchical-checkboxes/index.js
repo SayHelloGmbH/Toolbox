@@ -1,12 +1,12 @@
 /**
- * Custom React component used to render a hierarchical list 
- * of posts in the WordPress Block Editor. It's a bit slow if 
- * there are a lot of posts and it can only cope with as many 
+ * Custom React component used to render a hierarchical list
+ * of posts in the WordPress Block Editor. It's a bit slow if
+ * there are a lot of posts and it can only cope with as many
  * posts as the REST API can return in one request. (100.)
- * 
+ *
  * Since August 2023.
  * mark[at]sayhello.ch
- * 
+ *
  */
 
 import { withSelect } from '@wordpress/data';
@@ -52,14 +52,8 @@ function NestedList({ posts, activePostIds, setActivePostIds, removeElement = (e
 			{posts.map((post) => {
 				return (
 					<li key={post.value}>
-						<CheckboxControl
-							label={post.label}
-							checked={activePostIds.indexOf(post.value) !== -1}
-							onChange={(checked) => setActivePostIds(checked ? [...removeElement(post.value), post.value] : removeElement(post.value))}
-						/>
-						{post.children && (
-							<NestedList removeElement={removeElement} posts={post.children} activePostIds={activePostIds} setActivePostIds={setActivePostIds} />
-						)}
+						<CheckboxControl label={post.label} checked={activePostIds.indexOf(post.value) !== -1} onChange={(checked) => setActivePostIds(checked ? [...removeElement(post.value), post.value] : removeElement(post.value))} />
+						{post.children && <NestedList removeElement={removeElement} posts={post.children} activePostIds={activePostIds} setActivePostIds={setActivePostIds} />}
 					</li>
 				);
 			})}
@@ -67,7 +61,7 @@ function NestedList({ posts, activePostIds, setActivePostIds, removeElement = (e
 	);
 }
 
-const PostSelectorCheckboxesBase = ({ onChange, values = [], posts = [], filter = (posts) => posts }) => {
+const PostSelectorHierarchicalCheckboxesBase = ({ onChange, values = [], posts = [], filter = (posts) => posts }) => {
 	const [activePostIds, setActivePostIds] = useState(values);
 
 	useEffect(() => {
@@ -86,7 +80,7 @@ const PostSelectorCheckboxesBase = ({ onChange, values = [], posts = [], filter 
 	return <NestedList removeElement={removeElement} activePostIds={activePostIds} setActivePostIds={setActivePostIds} posts={hierarchicalArray} />;
 };
 
-const PostSelectorCheckboxes = withSelect((select, props) => {
+const PostSelectorHierarchicalCheckboxes = withSelect((select, props) => {
 	const { getEntityRecords } = select('core');
 	const { postQueryParams = {} } = props;
 
@@ -99,6 +93,6 @@ const PostSelectorCheckboxes = withSelect((select, props) => {
 			...postQueryParams,
 		}),
 	};
-})(PostSelectorCheckboxesBase);
+})(PostSelectorHierarchicalCheckboxesBase);
 
-export { PostSelectorCheckboxes };
+export { PostSelectorHierarchicalCheckboxes };
